@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DCDCDC"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtLocation1"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif"
+            android:text="Você está no"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtLocation2"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="sans-serif"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtLocation3"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="sans-serif"
+            android:text="andar"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtCurrentPeopleInLift"
+                android:layout_width="30dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="50dp"
+                android:fontFamily="sans-serif"
+                android:textColor="#FFFFFF"
+                android:textSize="48sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtSlash"
+                android:layout_width="20dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="50dp"
+                android:fontFamily="sans-serif"
+                android:text="/"
+                android:textColor="#FFFFFF"
+                android:textSize="48sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtTotalPeopleInLift"
+                android:layout_width="30dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="50dp"
+                android:fontFamily="sans-serif"
+                android:textColor="#FFFFFF"
+                android:textSize="48sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="-90dp"
+                android:layout_marginTop="80dp"
+                android:fontFamily="sans-serif"
+                android:text="pessoas no elevador"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edtInputText"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:ems="10"
+                android:hint="Digite um andar"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/btnSetFloor"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="50dp"
+                android:shadowColor="@color/black"
+                android:text="Ir para o andar selecionado" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif"
+                android:text="Alguém irá..."
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp">
+
+                <Button
+                    android:id="@+id/btnIn"
+                    android:layout_width="100dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="70dp"
+                    android:shadowColor="@color/black"
+                    android:text="Entrar" />
+
+                <Button
+                    android:id="@+id/btnOut"
+                    android:layout_width="100dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="70dp"
+                    android:shadowColor="@color/black"
+                    android:text="Sair" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
