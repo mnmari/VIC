@@ -23,7 +23,7 @@ data class Lift(private var currentNumberOfPeople: Int,
             currentNumberOfPeople -= 1
     }
 
-    fun validateCurrentFloor(floor: Int) : String {
+    fun validateAndShowCurrentFloor(floor: Int) : String {
 
         return if (floor < 0 || floor > numberOfFloors)
             "Insira um andar válido!"
@@ -32,6 +32,6 @@ data class Lift(private var currentNumberOfPeople: Int,
             "O elevador agora se encontra no térreo!"
 
         else
-            "O elevador agora se encontra no $floor andar!"
+            "O elevador agora se encontra no $floor° andar!"
     }
 }

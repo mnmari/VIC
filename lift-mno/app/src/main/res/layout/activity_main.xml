@@ -15,7 +15,7 @@
             android:id="@+id/txtLocation1"
             android:layout_width="150dp"
             android:layout_height="25dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
             android:fontFamily="sans-serif"
             android:text="Você está no"
@@ -26,7 +26,7 @@
             android:id="@+id/txtLocation2"
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="1dp"
             android:fontFamily="sans-serif"
             android:textColor="#000000"
@@ -37,7 +37,7 @@
             android:id="@+id/txtLocation3"
             android:layout_width="150dp"
             android:layout_height="45dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="1dp"
             android:fontFamily="sans-serif"
             android:text="andar"
@@ -55,10 +55,11 @@
 
             <TextView
                 android:id="@+id/txtCurrentPeopleInLift"
-                android:layout_width="30dp"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="50dp"
+                android:textAlignment="textEnd"
                 android:fontFamily="sans-serif"
                 android:textColor="#FFFFFF"
                 android:textSize="48sp"
@@ -68,7 +69,7 @@
                 android:id="@+id/txtSlash"
                 android:layout_width="20dp"
                 android:layout_height="60dp"
-                android:layout_marginLeft="1dp"
+                android:layout_marginStart="1dp"
                 android:layout_marginTop="50dp"
                 android:fontFamily="sans-serif"
                 android:text="/"
@@ -78,9 +79,9 @@
 
             <TextView
                 android:id="@+id/txtTotalPeopleInLift"
-                android:layout_width="30dp"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginLeft="1dp"
+                android:layout_marginStart="1dp"
                 android:layout_marginTop="50dp"
                 android:fontFamily="sans-serif"
                 android:textColor="#FFFFFF"
@@ -90,7 +91,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="60dp"
-                android:layout_marginLeft="-90dp"
+                android:layout_marginStart="-120dp"
                 android:layout_marginTop="80dp"
                 android:fontFamily="sans-serif"
                 android:text="pessoas no elevador"
@@ -111,13 +112,14 @@
                 android:id="@+id/edtInputText"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
+                android:layout_marginStart="100dp"
                 android:ems="10"
                 android:hint="Digite um andar"
                 android:inputType="number" />
 
             <Button
                 android:id="@+id/btnSetFloor"
+                android:backgroundTint="#2155F3"
                 android:layout_width="300dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="50dp"
@@ -141,6 +143,7 @@
 
                 <Button
                     android:id="@+id/btnIn"
+                    android:backgroundTint="#0A6400"
                     android:layout_width="100dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="70dp"
@@ -149,6 +152,7 @@
 
                 <Button
                     android:id="@+id/btnOut"
+                    android:backgroundTint="#A00000"
                     android:layout_width="100dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="70dp"

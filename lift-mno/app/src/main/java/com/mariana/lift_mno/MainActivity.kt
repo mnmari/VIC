@@ -10,25 +10,24 @@ import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var txtLocation2 : TextView
-    lateinit var txtLocation3 : TextView
+    private lateinit var txtLocation2 : TextView
+    private lateinit var txtLocation3 : TextView
 
-    lateinit var txtCurrentPeopleInLift : TextView
-    lateinit var txtTotalPeopleInLift : TextView
+    private lateinit var txtCurrentPeopleInLift : TextView
+    private lateinit var txtTotalPeopleInLift : TextView
 
-    var edtInputText : EditText? = null
-    lateinit var btnSetFloor : Button
-    lateinit var btnIn : Button
-    lateinit var btnOut : Button
+    private var edtInputText : EditText? = null
+    private lateinit var btnSetFloor : Button
+    private lateinit var btnIn : Button
+    private lateinit var btnOut : Button
 
     private val maxNumberOfPeople = 5 // fixo
     private val numberOfFloors = 10 // fixo
     private var numberOfPeople = 0
-    private val startFloor = 0
     private var selectedFloor = 0
 
-    var lift = Lift(numberOfPeople, maxNumberOfPeople, startFloor, numberOfFloors)
-    var option = 0
+    private var lift = Lift(numberOfPeople, maxNumberOfPeople, selectedFloor, numberOfFloors)
+    private var option = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
         updateFloorViewTextView(selectedFloor, numberOfFloors)
         lift.updateCurrentFloor(selectedFloor)
-        Toast.makeText(this, lift.validateCurrentFloor(selectedFloor), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, lift.validateAndShowCurrentFloor(selectedFloor), Toast.LENGTH_SHORT).show()
     }
 
     private fun updateNumberOfPeopleTextView() {
