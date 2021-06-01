@@ -38,11 +38,17 @@ class MainActivity : AppCompatActivity() {
         updateFloorViewTextView(selectedFloor, numberOfFloors)
         updateNumberOfPeopleTextView()
 
-        btnSetFloor.setOnClickListener(::onClickBtnSetFloor)
+        btnSetFloor.setOnClickListener{
+            onClickBtnSetFloor()
+        }
 
-        btnIn.setOnClickListener(::onClickBtnIn)
+        btnIn.setOnClickListener{
+            onClickBtnIn()
+        }
 
-        btnOut.setOnClickListener(::onClickBtnOut)
+        btnOut.setOnClickListener{
+            onClickBtnOut()
+        }
     }
 
     private fun bindViews(){
@@ -58,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         btnOut = findViewById(R.id.btnOut)
     }
 
-    private fun onClickBtnIn(view: View) {
+    private fun onClickBtnIn() {
         option = 1
         lift.updateNumberOfPeople(option)
         numberOfPeople = lift.getCurrentPeopleInLift()
@@ -66,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, lift.showCurrentPeopleInLift(), Toast.LENGTH_SHORT).show()
     }
 
-    private fun onClickBtnOut(view: View) {
+    private fun onClickBtnOut() {
         option = 2
         lift.updateNumberOfPeople(option)
         numberOfPeople = lift.getCurrentPeopleInLift()
@@ -74,12 +80,18 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, lift.showCurrentPeopleInLift(), Toast.LENGTH_SHORT).show()
     }
 
-    private fun onClickBtnSetFloor(view: View) {
-        selectedFloor = edtInputText?.text.toString().toIntOrNull()!!
+    private fun onClickBtnSetFloor() {
 
-        updateFloorViewTextView(selectedFloor, numberOfFloors)
-        lift.updateCurrentFloor(selectedFloor)
-        Toast.makeText(this, lift.validateAndShowCurrentFloor(selectedFloor), Toast.LENGTH_SHORT).show()
+        val strSelectedFloor = edtInputText?.text.toString()
+
+        if (strSelectedFloor.isNotEmpty()){
+            selectedFloor = strSelectedFloor.toInt()
+            updateFloorViewTextView(selectedFloor, numberOfFloors)
+            lift.updateCurrentFloor(selectedFloor)
+            Toast.makeText(this, lift.validateAndShowCurrentFloor(selectedFloor), Toast.LENGTH_SHORT).show()
+        }
+        else
+            Toast.makeText(this, "Por favor, digite um andar!", Toast.LENGTH_SHORT).show()
     }
 
     private fun updateNumberOfPeopleTextView() {
