@@ -131,7 +131,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun showFilteredContacts(strEdtSearch: String) {
         if (strEdtSearch.isNotEmpty()) {
-
             val contactFound = contactList.filter { it.name.toLowerCase(Locale.ROOT).contains(strEdtSearch) }
 
             if (contactFound.isNotEmpty()) {
