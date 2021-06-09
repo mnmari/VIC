@@ -13,8 +13,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var txtLocation2 : TextView
     private lateinit var txtLocation3 : TextView
 
-    private lateinit var txtCurrentPeopleInLift : TextView
-    private lateinit var txtTotalPeopleInLift : TextView
+    private lateinit var txtPeopleInLift : TextView
 
     private var edtInputText : EditText? = null
     private lateinit var btnSetFloor : Button
@@ -55,8 +54,7 @@ class MainActivity : AppCompatActivity() {
         txtLocation2 = findViewById(R.id.txtLocation2)
         txtLocation3 = findViewById(R.id.txtLocation3)
 
-        txtCurrentPeopleInLift = findViewById(R.id.txtCurrentPeopleInLift)
-        txtTotalPeopleInLift = findViewById(R.id.txtTotalPeopleInLift)
+        txtPeopleInLift = findViewById(R.id.txtPeopleInLift)
 
         edtInputText = findViewById(R.id.edtInputText)
         btnSetFloor = findViewById(R.id.btnSetFloor)
@@ -95,8 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateNumberOfPeopleTextView() {
-        txtCurrentPeopleInLift.text = lift.getCurrentPeopleInLift().toString()
-        txtTotalPeopleInLift.text = lift.getMaxNumberOfPeople().toString()
+        txtPeopleInLift.text = lift.getCurrentPeopleInLift().toString() + " / " + lift.getMaxNumberOfPeople().toString()
     }
 
     private fun updateFloorViewTextView(selectedFloor: Int, numberOfFloors: Int) {
