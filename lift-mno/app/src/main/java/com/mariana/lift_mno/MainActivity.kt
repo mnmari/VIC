@@ -93,16 +93,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateNumberOfPeopleTextView() {
-        txtPeopleInLift.text = lift.getCurrentPeopleInLift().toString() + " / " + lift.getMaxNumberOfPeople().toString()
+        txtPeopleInLift.text = getString(R.string.txtPeopleInLift, lift.getCurrentPeopleInLift(), lift.getMaxNumberOfPeople())
     }
 
     private fun updateFloorViewTextView(selectedFloor: Int, numberOfFloors: Int) {
         selectedFloor.let {
             if (selectedFloor in 1..numberOfFloors) {
-                txtLocation2.text = selectedFloor.toString() + "°"
-                txtLocation3.text = "andar"
+                txtLocation2.text = getString(R.string.txtLocation2, selectedFloor)
+                txtLocation3.text = getString(R.string.txtLocation3)
             } else if (selectedFloor == 0) {
-                txtLocation2.text = "Térreo"
+                txtLocation2.text = getString(R.string.txtLocation2_terreo)
                 txtLocation3.text = ""
             }
         }
