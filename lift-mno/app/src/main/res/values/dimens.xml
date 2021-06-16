@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginStartTxtLocation1">24dp</dimen>
+    <dimen name="marginTopTxtLocation1">24dp</dimen>
+    <dimen name="minMargin">1dp</dimen>
+
+    <dimen name="txtSizeH1">48sp</dimen>
+    <dimen name="txtSizeH2">32sp</dimen>
+    <dimen name="txtSizeH3">16sp</dimen>
+
+<!-- People in Lift + Background  -->
+    <dimen name="bgDiameter">200dp</dimen>
+    <dimen name="bgMarginTop">32dp</dimen>
+
+    <dimen name="marginTopTxtPeopleInLift">72dp</dimen>
+    <dimen name="marginTopPeopleInLift">8dp</dimen>
+    <dimen name="widthPeopleInLift">96dp</dimen>
+    <dimen name="heightPeopleInLift">56dp</dimen>
+
+<!-- EditText -->
+    <dimen name="marginTopEdtInputText">24dp</dimen>
+
+<!-- Buttons -->
+    <dimen name="marginTopBtn">16dp</dimen>
+    <dimen name="widthBtnSetFloor">288dp</dimen>
+    <dimen name="heightBtn">54dp</dimen>
+
+    <dimen name="marginStartBtnOut">70dp</dimen>
+    <dimen name="widthBtnInAndOut">96dp</dimen>
+
+</resources>

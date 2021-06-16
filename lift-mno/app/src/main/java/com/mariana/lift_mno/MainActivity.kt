@@ -13,8 +13,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var txtLocation2 : TextView
     private lateinit var txtLocation3 : TextView
 
-    private lateinit var txtCurrentPeopleInLift : TextView
-    private lateinit var txtTotalPeopleInLift : TextView
+    private lateinit var txtPeopleInLift : TextView
 
     private var edtInputText : EditText? = null
     private lateinit var btnSetFloor : Button
@@ -55,8 +54,7 @@ class MainActivity : AppCompatActivity() {
         txtLocation2 = findViewById(R.id.txtLocation2)
         txtLocation3 = findViewById(R.id.txtLocation3)
 
-        txtCurrentPeopleInLift = findViewById(R.id.txtCurrentPeopleInLift)
-        txtTotalPeopleInLift = findViewById(R.id.txtTotalPeopleInLift)
+        txtPeopleInLift = findViewById(R.id.txtPeopleInLift)
 
         edtInputText = findViewById(R.id.edtInputText)
         btnSetFloor = findViewById(R.id.btnSetFloor)
@@ -95,17 +93,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateNumberOfPeopleTextView() {
-        txtCurrentPeopleInLift.text = lift.getCurrentPeopleInLift().toString()
-        txtTotalPeopleInLift.text = lift.getMaxNumberOfPeople().toString()
+        txtPeopleInLift.text = getString(R.string.txtPeopleInLift, lift.getCurrentPeopleInLift(), lift.getMaxNumberOfPeople())
     }
 
     private fun updateFloorViewTextView(selectedFloor: Int, numberOfFloors: Int) {
         selectedFloor.let {
             if (selectedFloor in 1..numberOfFloors) {
-                txtLocation2.text = selectedFloor.toString() + "°"
-                txtLocation3.text = "andar"
+                txtLocation2.text = getString(R.string.txtLocation2, selectedFloor)
+                txtLocation3.text = getString(R.string.txtLocation3)
             } else if (selectedFloor == 0) {
-                txtLocation2.text = "Térreo"
+                txtLocation2.text = getString(R.string.txtLocation2_terreo)
                 txtLocation3.text = ""
             }
         }

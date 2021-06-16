@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">lift-mno</string>
+
+<!-- Fixas -->
+    <string name="txtLocation1">Você está no</string>
+    <string name="txtLocation2_terreo">Térreo</string>
+    <string name="txtLocation3">andar</string>
+    <string name="peopleInLift">pessoas no elevador</string>
+    <string name="edtInputText">Digite um andar</string>
+    <string name="btnSetFloor">Ir para o andar selecionado</string>
+    <string name="txtAlguemIra">Alguém irá…</string>
+    <string name="btnIn">Entrar</string>
+    <string name="btnOut">Sair</string>
+
+<!-- Variáveis -->
+    <string name="txtPeopleInLift">%1$d / %2$d</string>
+    <string name="txtLocation2">%1$d °</string>
+
 </resources>

@@ -1,165 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DCDCDC"
-    tools:context=".MainActivity">
+    android:fillViewport="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity">
 
         <TextView
+            style="@style/txtStyleStandard"
             android:id="@+id/txtLocation1"
-            android:layout_width="150dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="sans-serif"
-            android:text="Você está no"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginStartTxtLocation1"
+            android:layout_marginTop="@dimen/marginTopTxtLocation1"
+            android:text="@string/txtLocation1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
+            style="@style/txtStyleCurrentFloor"
             android:id="@+id/txtLocation2"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="1dp"
-            android:fontFamily="sans-serif"
-            android:textColor="#000000"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/minMargin"
+            tools:text="5°"
+            app:layout_constraintTop_toBottomOf="@+id/txtLocation1"
+            app:layout_constraintLeft_toLeftOf="@+id/txtLocation1" />
 
         <TextView
+            style="@style/txtStyleCurrentFloor"
             android:id="@+id/txtLocation3"
-            android:layout_width="150dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="1dp"
-            android:fontFamily="sans-serif"
-            android:text="andar"
-            android:textColor="#000000"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtLocation3"
+            app:layout_constraintTop_toBottomOf="@+id/txtLocation2"
+            app:layout_constraintLeft_toLeftOf="@+id/txtLocation2" />
 
-        <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+        <ImageView
+            android:id="@+id/backgroundCircle"
+            android:layout_width="@dimen/bgDiameter"
+            android:layout_height="@dimen/bgDiameter"
+            android:layout_marginTop="@dimen/bgMarginTop"
             android:background="@drawable/background"
-            android:orientation="horizontal">
+            app:layout_constraintTop_toBottomOf="@+id/txtLocation3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-            <TextView
-                android:id="@+id/txtCurrentPeopleInLift"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="50dp"
-                android:textAlignment="textEnd"
-                android:fontFamily="sans-serif"
-                android:textColor="#FFFFFF"
-                android:textSize="48sp"
-                android:textStyle="bold" />
+        <TextView
+            style="@style/txtStylePeopleInLift1"
+            android:id="@+id/txtPeopleInLift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTopTxtPeopleInLift"
+            tools:text="1/5"
+            app:layout_constraintTop_toBottomOf="@+id/txtLocation3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-            <TextView
-                android:id="@+id/txtSlash"
-                android:layout_width="20dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="50dp"
-                android:fontFamily="sans-serif"
-                android:text="/"
-                android:textColor="#FFFFFF"
-                android:textSize="48sp"
-                android:textStyle="bold" />
+        <TextView
+            style="@style/txtStylePeopleInLift2"
+            android:id="@+id/peopleInLift"
+            android:layout_width="@dimen/widthPeopleInLift"
+            android:layout_height="@dimen/heightPeopleInLift"
+            android:layout_marginTop="@dimen/marginTopPeopleInLift"
+            android:text="@string/peopleInLift"
+            app:layout_constraintTop_toBottomOf="@+id/txtPeopleInLift"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-            <TextView
-                android:id="@+id/txtTotalPeopleInLift"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="50dp"
-                android:fontFamily="sans-serif"
-                android:textColor="#FFFFFF"
-                android:textSize="48sp"
-                android:textStyle="bold" />
+        <EditText
+            android:id="@+id/edtInputText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTopEdtInputText"
+            android:ems="8"
+            android:hint="@string/edtInputText"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@+id/backgroundCircle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="-120dp"
-                android:layout_marginTop="80dp"
-                android:fontFamily="sans-serif"
-                android:text="pessoas no elevador"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/btnSetFloor"
+            android:backgroundTint="#2155F3"
+            android:layout_width="@dimen/widthBtnSetFloor"
+            android:layout_height="@dimen/heightBtn"
+            android:layout_marginTop="@dimen/marginTopBtn"
+            android:shadowColor="@color/black"
+            android:text="@string/btnSetFloor"
+            app:layout_constraintTop_toBottomOf="@+id/edtInputText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="190dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
+        <TextView
+            style="@style/txtStyleStandard"
+            android:id="@+id/txtAlguemIra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTopBtn"
+            android:text="@string/txtAlguemIra"
+            app:layout_constraintTop_toBottomOf="@+id/btnSetFloor"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
-            <EditText
-                android:id="@+id/edtInputText"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:ems="10"
-                android:hint="Digite um andar"
-                android:inputType="number" />
+        <Button
+            android:id="@+id/btnIn"
+            android:backgroundTint="@color/green"
+            android:layout_width="@dimen/widthBtnInAndOut"
+            android:layout_height="@dimen/heightBtn"
+            android:shadowColor="@color/black"
+            android:text="@string/btnIn"
+            app:layout_constraintTop_toBottomOf="@+id/txtAlguemIra"
+            app:layout_constraintRight_toLeftOf="@+id/btnOut"
+            app:layout_constraintLeft_toLeftOf="@+id/txtAlguemIra" />
 
-            <Button
-                android:id="@+id/btnSetFloor"
-                android:backgroundTint="#2155F3"
-                android:layout_width="300dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="50dp"
-                android:shadowColor="@color/black"
-                android:text="Ir para o andar selecionado" />
+        <Button
+            android:id="@+id/btnOut"
+            android:backgroundTint="@color/red"
+            android:layout_height="@dimen/heightBtn"
+            android:layout_width="@dimen/widthBtnInAndOut"
+            android:layout_marginStart="@dimen/marginStartBtnOut"
+            android:shadowColor="@color/black"
+            android:text="@string/btnOut"
+            app:layout_constraintTop_toBottomOf="@+id/txtAlguemIra"
+            app:layout_constraintLeft_toRightOf="@+id/btnIn"
+            app:layout_constraintRight_toRightOf="@+id/txtAlguemIra"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:fontFamily="sans-serif"
-                android:text="Alguém irá..."
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="5dp">
-
-                <Button
-                    android:id="@+id/btnIn"
-                    android:backgroundTint="#0A6400"
-                    android:layout_width="100dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="70dp"
-                    android:shadowColor="@color/black"
-                    android:text="Entrar" />
-
-                <Button
-                    android:id="@+id/btnOut"
-                    android:backgroundTint="#A00000"
-                    android:layout_width="100dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="70dp"
-                    android:shadowColor="@color/black"
-                    android:text="Sair" />
-
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
