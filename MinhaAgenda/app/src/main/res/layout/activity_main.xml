@@ -1,159 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DCDCDC"
+    android:fillViewport="true"
     tools:context=".MainActivity">
 
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2155F3"
+            android:text="Cadastrar"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:id="@+id/bgLine"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
+            app:layout_constraintTop_toBottomOf="@+id/btnRegister">
+        </View>
+
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Pesquisar"
+            android:inputType="textPersonName"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bgLine"/>
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#2155F3"
+            android:layout_marginStart="16dp"
+            android:text="OK"
+            app:layout_constraintLeft_toRightOf="@+id/edtSearch"
+            app:layout_constraintTop_toBottomOf="@+id/bgLine"/>
 
         <TextView
+            android:id="@+id/txtOutput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Insira os dados a serem cadastrados:"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"/>
+            android:layout_margin="24dp"
+            android:background="@drawable/background"
+            app:layout_constraintLeft_toLeftOf="@+id/btnSearch"
+            app:layout_constraintTop_toBottomOf="@+id/btnSearch"/>
 
-        <EditText
-            android:id="@+id/edtName"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnShowAllContacts"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Nome"
-            android:inputType="textPersonName"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"/>
-
-        <EditText
-            android:id="@+id/edtPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Celular"
-            android:inputType="phone"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"/>
-
-        <View
-            android:background="@android:color/darker_gray"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_margin="10dp">
-        </View>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Selecione o tipo de referência:"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"/>
-
-            <RadioGroup
-                android:id="@+id/rdgContactType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
-
-                <RadioButton
-                    android:id="@+id/rdPersonal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pessoal"
-                    android:checked="true"
-                    android:onClick="onRadioButtonClick"/>
-                <RadioButton android:id="@+id/rdWork"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Trabalho"
-                    android:onClick="onRadioButtonClick"/>
-            </RadioGroup>
-
-            <EditText
-                android:id="@+id/edtContactType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Referência"
-                android:inputType="text"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"/>
-
-
-            <Button
-                android:id="@+id/btnSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#2155F3"
-                android:layout_gravity="center"
-                android:text="Salvar"/>
-        </LinearLayout>
-
-        <View
-            android:background="@android:color/darker_gray"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_margin="10dp">
-        </View>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edtSearch"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:hint="Pesquisar"
-                android:inputType="textPersonName"
-                android:layout_marginStart="24dp"/>
-
-            <Button
-                android:id="@+id/btnSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#2155F3"
-                android:layout_gravity="center"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="24dp"
-                android:text="OK"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txtOutput"
-                android:background="@drawable/background"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="24dp"/>
-
-            <Button
-                android:id="@+id/btnShowAllContacts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#2155F3"
-                android:layout_gravity="center"
-                android:text="Exibir todos os contatos"/>
-
-        </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+            android:layout_gravity="center"
+            android:backgroundTint="#2155F3"
+            android:text="Exibir todos os contatos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtOutput"/>
+</androidx.constraintlayout.widget.ConstraintLayout></ScrollView>
