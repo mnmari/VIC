@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import showAgenda
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,14 +15,15 @@ class MainActivity : AppCompatActivity() {
     private var edtSearch : EditText? = null
     private lateinit var btnSearch : Button
     private lateinit var btnShowAllContacts : Button
-    private lateinit var txtOutput : TextView
+    private lateinit var rvOutput : RecyclerView
+    private lateinit var agendaAdapter : AgendaAdapter
+//    private lateinit var txtOutput : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         bindViews()
-
         addContact()
 
         btnSearch.setOnClickListener {
@@ -38,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var contactList = mutableListOf<Agenda>()
+        var strContactList = mutableListOf<String>()
+        var strFilteredList = mutableListOf<String>()
     }
 
     private fun addContact() {
@@ -60,13 +66,20 @@ class MainActivity : AppCompatActivity() {
         btnSearch = findViewById(R.id.btnSearch)
 
         btnShowAllContacts = findViewById(R.id.btnShowAllContacts)
-        txtOutput = findViewById(R.id.txtOutput)
+//        txtOutput = findViewById(R.id.txtOutput)
+        rvOutput = findViewById(R.id.rvOutput)
+
+        agendaAdapter = AgendaAdapter(context = this, dataSet = strContactList)
+        rvOutput.adapter = agendaAdapter
+        rvOutput.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
     }
 
     private fun onButtonSearchClick() {
         val strEdtSearch = edtSearch?.text.toString()
 
-        showFilteredContacts(strEdtSearch)
+        if (showFilteredContacts(strEdtSearch))
+            agendaAdapter.updateList(strFilteredList)
     }
 
     private fun onButtonShowAllContactsClick() {
@@ -74,38 +87,51 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showContacts() {
-        var strAllContacts = ""
+//        var strAllContacts = ""
 
         contactList.forEach {
-            if (it is Personal)
-                strAllContacts += it.showPersonalContacts()
-            if (it is Work)
-                strAllContacts += it.showWorkContacts()
+            if (it is Personal) {
+                strContactList.add(it.showPersonalContacts())
+//                strAllContacts += it.showPersonalContacts()
+            }
+            if (it is Work) {
+                strContactList.add(it.showWorkContacts())
+//                strAllContacts += it.showWorkContacts()
+            }
         }
-        txtOutput.text = strAllContacts
+        agendaAdapter = AgendaAdapter(context = this, dataSet = strContactList)
+        rvOutput.adapter = agendaAdapter
+        rvOutput.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+//        txtOutput.text = strAllContacts
     }
 
-    private fun showFilteredContacts(strEdtSearch: String) {
+    private fun showFilteredContacts(strEdtSearch: String) : Boolean {
         if (strEdtSearch.isNotEmpty()) {
             val contactFound = contactList.filter { it.name.toLowerCase(Locale.ROOT).contains(strEdtSearch) }
 
             if (contactFound.isNotEmpty()) {
-                var showContact = ""
+//                var showContact = ""
 
                 contactFound.forEach {
-                    if (it is Personal)
-                        showContact += it.showPersonalContacts()
-
-                    if (it is Work)
-                        showContact += it.showWorkContacts()
+                    if (it is Personal) {
+                        strFilteredList.add(it.showPersonalContacts())
+//                        showContact += it.showPersonalContacts()
+                    }
+                    if (it is Work) {
+                        strFilteredList.add(it.showWorkContacts())
+//                        showContact += it.showWorkContacts()
+                    }
                 }
 
-                txtOutput.text = showContact
+                return true
+//                txtOutput.text = showContact
 
             } else {
-                txtOutput.text = ""
+//                txtOutput.text = ""
                 Toast.makeText(this, "Registro não encontrado!", Toast.LENGTH_SHORT).show()
+                return false
             }
         }
+        return true
     }
 }
