@@ -82,15 +82,15 @@ class SecondActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
 
         if (selectedOptionOnRdg == 1 && strEdtName.isNotEmpty() && strEdtPhoneNumber.isNotEmpty() && strContactType.isNotEmpty()) {
-            val personalReference = Personal(strEdtName, strEdtPhoneNumber, strContactType)
-            intent.putExtra(CONTACT, personalReference)
+            val personal = Personal(strEdtName, strEdtPhoneNumber, strContactType)
+            intent.putExtra(CONTACT, personal)
             Toast.makeText(this, "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show()
             startActivity(intent)
         }
 
         else if (selectedOptionOnRdg == 2 && strEdtName.isNotEmpty() && strEdtPhoneNumber.isNotEmpty() && strContactType.isNotEmpty()) {
-            val workEmail = Work(strEdtName, strEdtPhoneNumber, strContactType)
-            intent.putExtra(CONTACT, workEmail)
+            val work = Work(strEdtName, strEdtPhoneNumber, strContactType)
+            intent.putExtra(CONTACT, work)
             Toast.makeText(this, "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show()
             startActivity(intent)
         }

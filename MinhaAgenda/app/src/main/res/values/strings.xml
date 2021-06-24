@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MinhaAgenda</string>
+    <string name="name">Nome: </string>
+    <string name="phone">Telefone: </string>
+    <string name="reference">Referência / e-mail: </string>
+
 </resources>
