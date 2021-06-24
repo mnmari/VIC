@@ -11,7 +11,7 @@ class Personal(
     Agenda(personalName, personalPhoneNumber){
 
     fun showPersonalContacts() : String {
-        val strAllContacts = " - " + name + "\n" + " - " + phoneNumber + "\n" + " - " + reference + "\n\n"
+        val strAllContacts = " - " + personalName + "\n" + " - " + personalPhoneNumber + "\n" + " - " + reference + "\n\n"
         return strAllContacts
     }
 

@@ -4,14 +4,14 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Work(
-    var personalName: String,
-    var personalPhoneNumber: String,
+    var workName: String,
+    var workPhoneNumber: String,
     var email: String
 ) :
-    Agenda(personalName, personalPhoneNumber){
+    Agenda(workName, workPhoneNumber){
 
     fun showWorkContacts() : String {
-        val strAllContacts = " - " + name + "\n" + " - " + phoneNumber + "\n" + " - " + email + "\n\n"
+        val strAllContacts = " - " + workName + "\n" + " - " + workPhoneNumber + "\n" + " - " + email + "\n\n"
         return strAllContacts
     }
 
