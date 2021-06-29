@@ -20,8 +20,10 @@ class frSecond : Fragment(){
         return inflater.inflate(R.layout.second_activity, container, false)
     }
 
+    //Mover o Toast para o HomeActivity?
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val texto = text
+
         Toast.makeText(requireActivity(), texto, Toast.LENGTH_SHORT).show()
     }
 }
