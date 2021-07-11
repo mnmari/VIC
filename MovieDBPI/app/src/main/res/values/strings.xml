@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MovieDB PI</string>
+    <string name="activity_home_svSearchMovie_hint">Pesquisar por um filme...</string>
+    <string name="activity_home_tblMenu_showAllMovies">Todos os filmes</string>
+    <string name="activity_home_tblMenu_showFavoriteMovies">Favoritos</string>
+
+</resources>

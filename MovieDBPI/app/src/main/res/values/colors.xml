@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green">#11C76F</color>
+    <color name="background_color">#E5E5E5</color>
+
+
+    <color name="grey_filter">#223324</color>
+    <color name="grey_movie_name">#434670</color>
+    <color name="grey_rating">#434670</color>
+    <color name="yellow_rating">#FCC419</color>
+
+</resources>
