@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "946866139859",
+    "project_id": "moviedb-pi",
+    "storage_bucket": "moviedb-pi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946866139859:android:a96e5d84c23a9e935bda26",
+        "android_client_info": {
+          "package_name": "com.mariana.moviedbpi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946866139859-3uf7d1dpc25b496u1egjr56qqssc1m1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACkQLUBlLlVtO8hVovpKYzGHXIaUFBC6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946866139859-3uf7d1dpc25b496u1egjr56qqssc1m1l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

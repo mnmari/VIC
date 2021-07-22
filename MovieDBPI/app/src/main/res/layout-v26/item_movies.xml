@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/large_dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewMovies"
+        android:layout_width="240dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgMovie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            tools:src="@drawable/movie_3" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/txtMovieName"
+        style="@style/TxtItemMovieName"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:autoSizeTextType="uniform"
+        android:layout_marginTop="@dimen/small_dp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintLeft_toLeftOf="@id/cardViewMovies"
+        app:layout_constraintRight_toRightOf="@id/cardViewMovies"
+        app:layout_constraintTop_toBottomOf="@id/cardViewMovies"
+        tools:text="Ford vs Ferrari" />
+
+    <ImageView
+        android:id="@+id/imgFavoriteIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_dp"
+        android:layout_marginStart="@dimen/xsmall_dp"
+        app:layout_constraintStart_toEndOf="@+id/txtMovieName"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewMovies"
+        app:srcCompat="@drawable/heart_favorites_unselected" />
+
+    <TextView
+        android:id="@+id/txtMovieRating"
+        style="@style/TxtItemMovieRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xsmall_dp"
+        app:layout_constraintLeft_toLeftOf="@id/txtMovieName"
+        app:layout_constraintRight_toRightOf="@id/txtMovieName"
+        app:layout_constraintTop_toBottomOf="@id/txtMovieName"
+        tools:text="81%" />
+
+    <ImageView
+        android:id="@+id/imgStarIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/xsmall_dp"
+        android:layout_marginEnd="@dimen/xsmall_dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtMovieRating"
+        app:layout_constraintTop_toBottomOf="@+id/txtMovieName"
+        app:srcCompat="@drawable/star_rating" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
