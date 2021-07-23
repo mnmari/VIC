@@ -19,6 +19,7 @@ class MoviesFragment : Fragment() {
 
     private lateinit var genresAdapter: GenresAdapter
     private lateinit var moviesAdapter: MoviesAdapter
+    private val viewModel = MoviesFragmentViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,66 +40,30 @@ class MoviesFragment : Fragment() {
         rvGenre.adapter = genresAdapter
         rvGenre.layoutManager= LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
 
-        getMovies()
-        getGenres()
+        viewModel.getMovies()
+        setupObserveMoviesList()
 
-
-//        val request = Network.buildService(TMDBService::class.java)
-//        val call = request.getMovies(Constants.PRIVATE_KEY.value)
-//
-//        call.enqueue(object : Callback<PopularMovies> {
-//            override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
-//                if (response.isSuccessful) {
-////                    progress_bar.visibility = View.GONE
-//
-//                    rvMovies.apply {
-//                        setHasFixedSize(true)
-//                        layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-//                        adapter = MoviesAdapter(response.body()!!.popularMovies as MutableList<Movie>)
-//                    }
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<PopularMovies>, t: Throwable) {
-//                Toast.makeText(requireActivity(), "Deu ruim", Toast.LENGTH_SHORT).show()
-//            }
-//        })
+        viewModel.getGenres()
+        setupObserveGenresList()
     }
 
-    private fun getMovies() {
-
-        var service = Network.getService().getAllMovies()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-            }
-            .doOnComplete {
-
-            }
-            .subscribe { response ->
-                Toast.makeText(requireContext(), "nada faz sentido nessa vida", Toast.LENGTH_SHORT).show()
-                moviesAdapter.dataSet.addAll(response.popularMovies)
-                moviesAdapter.notifyDataSetChanged()
-            }
-//            .dispose()
+    private fun setupObserveMoviesList() {
+        viewModel.moviesLiveData.observe(requireActivity(),
+            { response ->
+                response?.let {
+                    moviesAdapter.dataSet.addAll(it)
+                    moviesAdapter.notifyDataSetChanged()
+                }
+            })
     }
 
-    private fun getGenres() {
-
-        var service = Network.getService().getAllGenres()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-            }
-            .doOnComplete {
-
-            }
-            .subscribe { response ->
-                genresAdapter.dataSet.addAll(response.genres)
-                genresAdapter.notifyDataSetChanged()
-            }
-//            .dispose()
+    private fun setupObserveGenresList() {
+        viewModel.genresLiveData.observe(requireActivity(),
+            { response ->
+                response?.let {
+                    genresAdapter.dataSet.addAll(it)
+                    genresAdapter.notifyDataSetChanged()
+                }
+            })
     }
 }

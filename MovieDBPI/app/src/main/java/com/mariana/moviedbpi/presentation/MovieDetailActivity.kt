@@ -1,4 +1,4 @@
 package com.mariana.moviedbpi.presentation
 
-class MainActivityViewModel {
+class MovieDetailActivity {
 }
