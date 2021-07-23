@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/large_dp">
@@ -27,15 +26,17 @@
     <TextView
         android:id="@+id/txtMovieName"
         style="@style/TxtItemMovieName"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="240dp"
         android:layout_marginTop="@dimen/small_dp"
-        android:scrollHorizontally="true"
         android:ellipsize="end"
+        android:maxWidth="240dp"
         android:maxLines="1"
-        app:layout_constraintLeft_toLeftOf="@id/cardViewMovies"
-        app:layout_constraintRight_toRightOf="@id/cardViewMovies"
+        android:scrollHorizontally="true"
+        app:layout_constraintEnd_toStartOf="@+id/imgFavoriteIcon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardViewMovies"
         tools:text="Ford vs Ferrari" />
 
@@ -43,10 +44,11 @@
         android:id="@+id/imgFavoriteIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_dp"
         android:layout_marginStart="@dimen/xsmall_dp"
-        app:layout_constraintStart_toEndOf="@+id/txtMovieName"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewMovies"
+        app:layout_constraintBottom_toBottomOf="@id/txtMovieName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txtMovieName"
+        app:layout_constraintTop_toTopOf="@id/txtMovieName"
         app:srcCompat="@drawable/heart_favorites_unselected" />
 
     <TextView
@@ -55,8 +57,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/xsmall_dp"
-        app:layout_constraintLeft_toLeftOf="@id/txtMovieName"
-        app:layout_constraintRight_toRightOf="@id/txtMovieName"
+        app:layout_constraintEnd_toEndOf="@+id/txtMovieName"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgStarIcon"
         app:layout_constraintTop_toBottomOf="@id/txtMovieName"
         tools:text="81%" />
 
@@ -64,10 +67,13 @@
         android:id="@+id/imgStarIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/xsmall_dp"
         android:layout_marginEnd="@dimen/xsmall_dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtMovieUserRating"
         app:layout_constraintEnd_toStartOf="@+id/txtMovieUserRating"
-        app:layout_constraintTop_toBottomOf="@+id/txtMovieName"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/txtMovieName"
+        app:layout_constraintTop_toTopOf="@+id/txtMovieUserRating"
         app:srcCompat="@drawable/star_rating" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
