@@ -8,7 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.mariana.moviedbpi.presentation.FavoriteMoviesFragment
 import com.mariana.moviedbpi.presentation.MoviesFragment
 
-class FragmentsAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+class HomeActivityFragmentsAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
     override fun getItemCount(): Int = NUMBER_OF_FRAGMENTS
 

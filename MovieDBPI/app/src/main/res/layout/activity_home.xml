@@ -4,44 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".presentation.HomeActivity">
 
-    <SearchView
-        android:id="@+id/svSearchMovie"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/txtSearchTitle"
+        style="@style/TxtItemTblMenu"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/activity_home_searchTitle"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/medium_dp"
+        android:layout_marginTop="@dimen/medium_dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtSearchMovieHomeActivity" />
+
+    <Button
+        android:id="@+id/btnReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:text="@string/activity_home_btnReturn"
+        android:visibility="gone"
+        android:textAllCaps="false"
+        android:textColor="@color/green"
+        android:textSize="@dimen/small_sp"
+        app:layout_constraintStart_toStartOf="@+id/txtSearchTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txtSearchTitle" />
+
+    <ImageView
+        android:id="@+id/imgSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_search"
         android:layout_marginTop="@dimen/small_dp"
         android:layout_marginStart="@dimen/medium_dp"
-        android:layout_marginEnd="@dimen/medium_dp"
-        android:textAlignment="gravity"
-        android:ems="10"
-        android:inputType="textAutoComplete"
-        android:queryHint="@string/activity_home_svSearchMovie_hint"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/edtSearchMovieHomeActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_dp"
+        android:layout_marginStart="@dimen/small_dp"
+        android:background="@color/background_color"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
+        android:ems="15"
+        android:hint="@string/activity_home_svSearchMovie_hint"
+        android:textAlignment="gravity"
+        app:layout_constraintStart_toEndOf="@+id/imgSearch"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tblMenu"
+        android:id="@+id/tblMenuHomeActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/background_color"
         android:layout_marginTop="@dimen/small_dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/svSearchMovie"
-        app:tabIndicator="@drawable/rectangle"
+        app:layout_constraintTop_toBottomOf="@id/edtSearchMovieHomeActivity"
+        app:tabIndicator="@drawable/ic_rectangle"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorColor="@color/green"
         app:tabGravity="fill"
         app:tabSelectedTextColor="@color/grey_1"
         app:tabTextAppearance="@style/TxtItemTblMenu" />
 
+    <FrameLayout
+        android:id="@+id/searchFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btnReturn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vwpContent"
+        android:id="@+id/vwpContentHomeActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tblMenu"
+        app:layout_constraintTop_toBottomOf="@id/tblMenuHomeActivity"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

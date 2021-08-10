@@ -9,18 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Network {
 
-//    private val client = OkHttpClient.Builder().build()
-//
-//    private val retrofit = Retrofit.Builder()
-//        .baseUrl(Constants.BASE_URL.value)
-//        .addConverterFactory(GsonConverterFactory.create())
-//        .client(client)
-//        .build()
-//
-//    fun<T> buildService(service: Class<T>): T{
-//        return retrofit.create(service)
-//    }
-
     fun getService(): TMDBService {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY

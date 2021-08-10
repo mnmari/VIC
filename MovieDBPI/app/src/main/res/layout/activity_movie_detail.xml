@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.MovieDetailActivity"
+    tools:context=".presentation.MovieDetailActivity">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/background_color">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingButtonReturn"
+    <ImageButton
+        android:id="@+id/btnReturn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/small_dp"
         android:layout_marginTop="@dimen/small_dp"
-        android:src="@drawable/return_icon"
+        android:elevation="@dimen/small_dp"
+        android:src="@drawable/ic_return"
         android:backgroundTint="@android:color/transparent"
-        app:fabSize="mini"
-        app:borderWidth="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgMovieDetailPoster"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="240dp"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +46,7 @@
         android:id="@+id/imgMovieDetailStarIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/star_rating"
+        android:src="@drawable/ic_star_rating"
         android:elevation="@dimen/small_dp"
         android:layout_marginStart="@dimen/small_dp"
         app:layout_constraintStart_toStartOf="@id/cardViewUserRating"
@@ -58,10 +61,10 @@
         android:layout_marginEnd="@dimen/large_dp"
         android:layout_marginBottom="@dimen/large_dp"
         android:elevation="@dimen/medium_dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardViewUserRating"
-        app:layout_constraintEnd_toEndOf="@+id/cardViewUserRating"
-        app:layout_constraintStart_toStartOf="@+id/cardViewUserRating"
-        app:layout_constraintTop_toTopOf="@+id/cardViewUserRating"
+        app:layout_constraintBottom_toBottomOf="@id/cardViewUserRating"
+        app:layout_constraintEnd_toEndOf="@id/cardViewUserRating"
+        app:layout_constraintStart_toStartOf="@id/cardViewUserRating"
+        app:layout_constraintTop_toTopOf="@id/cardViewUserRating"
         tools:text="81%" />
 
     <TextView
@@ -73,19 +76,32 @@
         android:text="@string/activity_movie_detail_fixedTextUserRating"
         android:layout_marginEnd="@dimen/large_dp"
         android:layout_marginBottom="@dimen/xsmall_dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardViewUserRating"
-        app:layout_constraintStart_toStartOf="@+id/txtMovieDetailUserRating"
-        app:layout_constraintTop_toBottomOf="@+id/txtMovieDetailUserRating" />
+        app:layout_constraintBottom_toBottomOf="@id/cardViewUserRating"
+        app:layout_constraintStart_toStartOf="@id/txtMovieDetailUserRating"
+        app:layout_constraintTop_toBottomOf="@id/txtMovieDetailUserRating" />
 
     <TextView
         android:id="@+id/txtMovieDetailTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/TxtItemMovieName"
+        android:ellipsize="end"
+        android:maxWidth="300dp"
+        android:maxLines="1"
+        android:layout_marginTop="@dimen/xsmall_dp"
         android:layout_marginStart="@dimen/large_dp"
         tools:text="Ford vs Ferrari"
         app:layout_constraintTop_toBottomOf="@id/cardViewUserRating"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_heart_favorites_unselected"
+        android:backgroundTint="@color/background_color"
+        android:layout_marginEnd="@dimen/medium_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewUserRating" />
 
     <TextView
         android:id="@+id/txtMovieDetailYear"
@@ -93,8 +109,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/xsmall_dp"
-        app:layout_constraintStart_toStartOf="@+id/txtMovieDetailTitle"
-        app:layout_constraintTop_toBottomOf="@+id/txtMovieDetailTitle"
+        app:layout_constraintStart_toStartOf="@id/txtMovieDetailTitle"
+        app:layout_constraintTop_toBottomOf="@id/txtMovieDetailTitle"
         tools:text="2019" />
 
     <TextView
@@ -105,7 +121,7 @@
         android:layout_marginTop="@dimen/xsmall_dp"
         android:layout_marginStart="@dimen/medium_dp"
         app:layout_constraintStart_toEndOf="@+id/txtMovieDetailYear"
-        app:layout_constraintTop_toBottomOf="@+id/txtMovieDetailTitle"
+        app:layout_constraintTop_toBottomOf="@id/txtMovieDetailTitle"
         tools:text="PG-13" />
 
     <TextView
@@ -116,7 +132,7 @@
         android:layout_marginTop="@dimen/xsmall_dp"
         android:layout_marginStart="@dimen/medium_dp"
         app:layout_constraintStart_toEndOf="@+id/txtMovieDetailMovieRating"
-        app:layout_constraintTop_toBottomOf="@+id/txtMovieDetailTitle"
+        app:layout_constraintTop_toBottomOf="@id/txtMovieDetailTitle"
         tools:text="2h 32min" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -124,12 +140,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="@dimen/large_dp"
+        android:layout_marginStart="@dimen/medium_dp"
         android:layout_marginTop="@dimen/xsmall_dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMovieDetailRuntime"
+        app:layout_constraintTop_toBottomOf="@id/txtMovieDetailRuntime"
         tools:listitem="@layout/item_genre_movie_detail" />
 
     <TextView
@@ -138,9 +153,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/large_dp"
-        android:layout_marginTop="@dimen/medium_dp"
+        android:layout_marginTop="@dimen/small_dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvGenresMovieDetail"
+        app:layout_constraintTop_toBottomOf="@id/rvGenresMovieDetail"
         android:text="@string/activity_movie_detail_fixedTextOverview" />
 
     <TextView
@@ -153,7 +168,7 @@
         android:layout_marginTop="@dimen/xsmall_dp"
         app:layout_constraintStart_toStartOf="@+id/txtMovieDetailOverviewTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMovieDetailOverviewTitle"
+        app:layout_constraintTop_toBottomOf="@id/txtMovieDetailOverviewTitle"
         tools:text="American car designer Carroll Shelby and driver Kn Miles battle corporate interference and the laws of physics to build a revolutionary race car for Ford in order." />
 
     <TextView
@@ -165,7 +180,7 @@
         android:layout_marginTop="@dimen/small_dp"
         android:text="@string/activity_movie_detail_fixedTextCast"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMovieDetailOverview" />
+        app:layout_constraintTop_toBottomOf="@id/txtMovieDetailOverview" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCastMovieDetail"
@@ -178,7 +193,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMovieDetailCast"
+        app:layout_constraintTop_toBottomOf="@id/txtMovieDetailCast"
         tools:listitem="@layout/item_cast" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

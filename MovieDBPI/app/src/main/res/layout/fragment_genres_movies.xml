@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_dp"
+        android:layout_marginStart="@dimen/medium_dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
