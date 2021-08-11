@@ -6,4 +6,6 @@
     <string name="activity_movie_detail_fixedTextUserRating">Avaliação \ndos usuários</string>
     <string name="activity_movie_detail_fixedTextOverview">Sinopse</string>
     <string name="activity_movie_detail_fixedTextCast">Elenco</string>
+    <string name="activity_home_searchTitle">Modo pesquisa</string>
+    <string name="activity_home_btnReturn">Voltar ao início</string>
 </resources>

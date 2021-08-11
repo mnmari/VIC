@@ -1,22 +1,26 @@
 package com.mariana.moviedbpi.presentation.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mariana.moviedbpi.R
-import com.mariana.moviedbpi.data.model.Movie
+import com.mariana.moviedbpi.domain.MovieActionListener
+import com.mariana.moviedbpi.domain.entity.Movie
+import com.mariana.moviedbpi.presentation.MovieDetailActivity
 
-class MoviesAdapter(val context: Context, var dataSet: MutableList<Movie> = mutableListOf()) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+class MoviesAdapter(private val context: Context, private val movieActionListener: MovieActionListener? = null, var dataSet: MutableList<Movie> = mutableListOf()) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
     inner class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var itemMoviePoster: ImageView = view.findViewById(R.id.imgMoviePoster)
-        var itemMovieName: TextView = view.findViewById(R.id.txtMovieName)
-        var itemMovieUserRating: TextView = view.findViewById(R.id.txtMovieUserRating)
+        val itemMoviePoster: ImageButton = view.findViewById(R.id.imgMoviePoster)
+        val itemMovieName: TextView = view.findViewById(R.id.txtMovieName)
+        val itemMovieUserRating: TextView = view.findViewById(R.id.txtMovieUserRating)
+        val itemIsFavorite: ImageButton = view.findViewById(R.id.btnFavoriteIcon)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MoviesViewHolder {
@@ -34,12 +38,18 @@ class MoviesAdapter(val context: Context, var dataSet: MutableList<Movie> = muta
         Glide.with(context)
             .load("https://image.tmdb.org/t/p/w500${dataSet[position].posterPath}")
             .into(viewHolder.itemMoviePoster)
+
+        viewHolder.itemMoviePoster.setOnClickListener {
+            movieActionListener?.openMovieDetailActivity(dataSet[position].movieID)
+        }
+
+        viewHolder.itemIsFavorite.setOnClickListener {
+            movieActionListener?.onFavoriteClickedListener(dataSet[position], true)
+        }
+
     }
 
     //onViewRecycled()
 
     override fun getItemCount() = dataSet.size
-
-
-
 }

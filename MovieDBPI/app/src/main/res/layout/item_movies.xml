@@ -15,11 +15,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/imgMoviePoster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
             tools:src="@drawable/movie_3" />
     </androidx.cardview.widget.CardView>
 
@@ -33,23 +36,24 @@
         android:maxWidth="240dp"
         android:maxLines="1"
         android:scrollHorizontally="true"
-        app:layout_constraintEnd_toStartOf="@+id/imgFavoriteIcon"
+        app:layout_constraintEnd_toStartOf="@+id/btnFavoriteIcon"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardViewMovies"
         tools:text="Ford vs Ferrari" />
 
-    <ImageView
-        android:id="@+id/imgFavoriteIcon"
+    <ImageButton
+        android:id="@+id/btnFavoriteIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/xsmall_dp"
+        android:backgroundTint="@color/transparent"
         app:layout_constraintBottom_toBottomOf="@id/txtMovieName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/txtMovieName"
         app:layout_constraintTop_toTopOf="@id/txtMovieName"
-        app:srcCompat="@drawable/heart_favorites_unselected" />
+        app:srcCompat="@drawable/ic_heart_favorites_unselected" />
 
     <TextView
         android:id="@+id/txtMovieUserRating"
@@ -70,10 +74,9 @@
         android:layout_marginEnd="@dimen/xsmall_dp"
         app:layout_constraintBottom_toBottomOf="@+id/txtMovieUserRating"
         app:layout_constraintEnd_toStartOf="@+id/txtMovieUserRating"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/txtMovieName"
         app:layout_constraintTop_toTopOf="@+id/txtMovieUserRating"
-        app:srcCompat="@drawable/star_rating" />
+        app:srcCompat="@drawable/ic_star_rating" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
