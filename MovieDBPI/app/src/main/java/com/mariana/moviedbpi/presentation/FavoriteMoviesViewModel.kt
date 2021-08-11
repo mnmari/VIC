@@ -40,7 +40,9 @@ class FavoriteMoviesViewModel : ViewModel() {
     fun addFavoriteMovie(movie: Movie) {
         CoroutineScope(Dispatchers.IO).launch {
             addFavoriteMovieUseCase.run(movie)
-            getFavoriteMovies()
+
+            val favoriteMovie = _moviesLiveData.value?.find { it.movieID == movie.movieID }
+            favoriteMovie?.isFavorite = true
         }
     }
 

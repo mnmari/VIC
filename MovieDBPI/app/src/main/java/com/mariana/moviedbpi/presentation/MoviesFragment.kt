@@ -9,16 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mariana.moviedbpi.R
+import com.mariana.moviedbpi.domain.DoOnErrorOnRequestListener
 import com.mariana.moviedbpi.domain.MovieActionListener
 import com.mariana.moviedbpi.domain.entity.Movie
 import com.mariana.moviedbpi.presentation.adapter.GenresAdapter
 import com.mariana.moviedbpi.presentation.adapter.MoviesAdapter
 
-class MoviesFragment : Fragment(), MovieActionListener {
+class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListener {
 
     private lateinit var genresAdapter: GenresAdapter
     private lateinit var moviesAdapter: MoviesAdapter
-    private val moviesFragmentViewModel = MoviesViewModel()
+    private val moviesFragmentViewModel = MoviesViewModel(this)
     private val favoriteMoviesFragmentViewModel = FavoriteMoviesViewModel()
 
     override fun onCreateView(
@@ -42,7 +43,7 @@ class MoviesFragment : Fragment(), MovieActionListener {
 
     private fun setupGenresRecyclerView(view: View) {
         val rvGenre = view.findViewById<RecyclerView>(R.id.rvGenres)
-        genresAdapter = GenresAdapter()
+        genresAdapter = GenresAdapter(requireContext(), this)
         rvGenre.adapter = genresAdapter
         rvGenre.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -82,7 +83,8 @@ class MoviesFragment : Fragment(), MovieActionListener {
     }
 
     override fun filterMoviesByGenre(genresIDs: MutableList<Int>) {
-        TODO("Not yet implemented")
+        moviesFragmentViewModel.getMoviesByGenres(genresIDs)
+        setupObserveMoviesList()
     }
 
     companion object {
@@ -91,12 +93,14 @@ class MoviesFragment : Fragment(), MovieActionListener {
 
     //TODO: fazer uma comparação dos filmes que vieram da API com os filmes salvos em favoritos.
     // Salvar a lista de filmes favoritos,
+    // colocar usecases de favorito na viewmodel de filmes
     override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean) {
 
         if (isClicked) {
             if (!movie.isFavorite) {
                 movie.isFavorite = true
                 favoriteMoviesFragmentViewModel.addFavoriteMovie(movie)
+                moviesAdapter.notifyDataSetChanged()
             }
             else {
                 movie.isFavorite = false
@@ -104,4 +108,10 @@ class MoviesFragment : Fragment(), MovieActionListener {
             }
         }
     }
+
+    override fun onError() {
+        val intent = Intent(context, RequestFailedActivity::class.java)
+        context?.startActivity(intent)
+    }
+
 }

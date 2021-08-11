@@ -6,13 +6,14 @@ import androidx.lifecycle.ViewModel
 import com.mariana.moviedbpi.domain.FetchMovieCastUseCase
 import com.mariana.moviedbpi.domain.FetchMovieDetailUseCase
 import com.mariana.moviedbpi.domain.FetchMovieRatingUseCase
+import com.mariana.moviedbpi.domain.DoOnErrorOnRequestListener
 import com.mariana.moviedbpi.domain.entity.Cast
 import com.mariana.moviedbpi.domain.entity.MovieDetail
 import com.mariana.moviedbpi.domain.entity.Rating
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MovieDetailViewModel : ViewModel() {
+class MovieDetailViewModel(private val errorListener: DoOnErrorOnRequestListener? = null) : ViewModel() {
 
     private val _movieDetailLiveData = MutableLiveData<MovieDetail>()
     val movieDetailLiveData : LiveData<MovieDetail> = _movieDetailLiveData
@@ -32,7 +33,7 @@ class MovieDetailViewModel : ViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError {
-
+                errorListener?.onError()
             }
             .subscribe {
                 _movieDetailLiveData.value = it
@@ -44,7 +45,7 @@ class MovieDetailViewModel : ViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError {
-
+                errorListener?.onError()
             }
             .subscribe { it ->
                 val localMovieRating = (it.response.find {it.countryCode == COUNTRY_CODE})?.releaseDates
@@ -61,7 +62,7 @@ class MovieDetailViewModel : ViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError {
-
+                errorListener?.onError()
             }
             .subscribe {
                 _movieCastLiveData.value = it.cast

@@ -41,7 +41,7 @@ class FavoriteMoviesFragment : Fragment(), MovieActionListener {
 
     private fun setupGenresRecyclerView(view: View) {
         val rvGenre = view.findViewById<RecyclerView>(R.id.rvGenres)
-        genresAdapter = GenresAdapter()
+        genresAdapter = GenresAdapter(requireContext(), this)
         rvGenre.adapter = genresAdapter
         rvGenre.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
     }
@@ -83,6 +83,7 @@ class FavoriteMoviesFragment : Fragment(), MovieActionListener {
         TODO("Not yet implemented")
     }
 
+    //TODO: ISSO AQUI VAI SER O TESTE DE INTERFACE
     override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean) {
         if (isClicked) {
             if (!movie.isFavorite) {

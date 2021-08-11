@@ -8,4 +8,12 @@
     <string name="activity_movie_detail_fixedTextCast">Elenco</string>
     <string name="activity_home_searchTitle">Modo pesquisa</string>
     <string name="activity_home_btnReturn">Voltar ao início</string>
+    <string name="activity_home_search_movie_not_found">Esse filme não existe</string>
+    <string name="activity_home_search_movie_not_found_body">Não conseguimos encontrar o filme que você procura.\nPor favor, refaça sua busca.</string>
+    <string name="activity_request_failed_header">O sistema falhou</string>
+    <string name="activity_request_failed_body">Por algum motivo, não foi possível processar com essa solicitação. Por favor, tente novamente.</string>
+    <string name="activity_request_try_again">Tentar novamente</string>
+
+
+
 </resources>

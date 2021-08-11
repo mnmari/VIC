@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieDBPI">
         <activity android:name=".presentation.MovieDetailActivity" />
+        <activity android:name=".presentation.RequestFailedActivity" />
         <activity
             android:name=".presentation.HomeActivity"
             android:windowSoftInputMode="adjustPan">

@@ -26,7 +26,7 @@
         android:background="@android:color/transparent"
         android:gravity="top"
         android:text="@string/activity_home_btnReturn"
-        android:visibility="gone"
+        android:visibility="visible"
         android:textAllCaps="false"
         android:textColor="@color/green"
         android:textSize="@dimen/small_sp"

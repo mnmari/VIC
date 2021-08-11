@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/src/VIC/MovieDBPI/app/src/main/res/layout/activity_home.xml" value="0.3161231884057971" />
+        <entry key="..\:/src/VIC/MovieDBPI/app/src/main/res/layout/activity_movie_detail.xml" value="0.25" />
+        <entry key="..\:/src/VIC/MovieDBPI/app/src/main/res/layout/activity_request_failed.xml" value="0.3776041666666667" />
+        <entry key="..\:/src/VIC/MovieDBPI/app/src/main/res/layout/fragment_genres_movies.xml" value="0.25" />
         <entry key="..\:/src/VIC/MovieDBPI/app/src/main/res/layout/item_genre.xml" value="0.2341485507246377" />
+        <entry key="..\:/src/VIC/MovieDBPI/app/src/main/res/layout/item_movies.xml" value="0.215625" />
+        <entry key="..\:/src/VIC/MovieDBPI/app/src/main/res/layout/movie_not_found.xml" value="0.35280797101449274" />
+        <entry key="..\:/src/VIC/MovieDBPI/app/src/main/res/layout/request_failed.xml" value="0.35280797101449274" />
       </map>
     </option>
   </component>
