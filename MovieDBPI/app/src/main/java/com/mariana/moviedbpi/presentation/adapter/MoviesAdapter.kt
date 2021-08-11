@@ -2,6 +2,7 @@ package com.mariana.moviedbpi.presentation.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color.red
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,12 @@ class MoviesAdapter(private val context: Context, private val movieActionListene
 
         viewHolder.itemMovieName.text = dataSet[position].title
         viewHolder.itemMovieUserRating.text = dataSet[position].showUserRatingString()
+
+        if (dataSet[position].isFavorite)
+            viewHolder.itemIsFavorite.setImageResource(R.drawable.ic_heart_favorites_selected)
+
+        else
+            viewHolder.itemIsFavorite.setImageResource(R.drawable.ic_heart_favorites_unselected)
 
         Glide.with(context)
             .load("https://image.tmdb.org/t/p/w500${dataSet[position].posterPath}")

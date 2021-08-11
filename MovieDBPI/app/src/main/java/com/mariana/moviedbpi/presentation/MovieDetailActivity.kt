@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mariana.moviedbpi.R
+import com.mariana.moviedbpi.domain.DoOnErrorOnRequestListener
 import com.mariana.moviedbpi.domain.entity.Genres
 import com.mariana.moviedbpi.presentation.adapter.CastAdapter
 import com.mariana.moviedbpi.presentation.adapter.MovieDetailGenresAdapter
 
-class MovieDetailActivity : AppCompatActivity() {
+class MovieDetailActivity() : AppCompatActivity(), DoOnErrorOnRequestListener {
 
     private var movieID: Int = 0
 
@@ -31,7 +32,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var btnReturn: ImageButton
 
-    private val movieDetailViewModel = MovieDetailViewModel()
+    private val movieDetailViewModel = MovieDetailViewModel(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,5 +125,10 @@ class MovieDetailActivity : AppCompatActivity() {
                     castAdapter.notifyDataSetChanged()
                 }
             })
+    }
+
+    override fun onError() {
+        val intent = Intent(this, RequestFailedActivity::class.java)
+        startActivity(intent)
     }
 }

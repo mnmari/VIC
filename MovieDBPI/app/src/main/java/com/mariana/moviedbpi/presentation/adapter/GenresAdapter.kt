@@ -36,7 +36,7 @@ class GenresAdapter(private val context: Context, private val movieActionListene
             } else {
                 selectedGenres.remove(dataSet[position])
             }
-//            movieActionListener?.filterMoviesByGenre(selectedGenres)
+            movieActionListener?.filterMoviesByGenre(selectedGenres)
         }
 
     }

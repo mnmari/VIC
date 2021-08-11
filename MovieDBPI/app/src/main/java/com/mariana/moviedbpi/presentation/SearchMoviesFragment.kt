@@ -1,5 +1,6 @@
 package com.mariana.moviedbpi.presentation
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,15 +11,18 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mariana.moviedbpi.R
+import com.mariana.moviedbpi.domain.MovieActionListener
 import com.mariana.moviedbpi.domain.entity.Movie
+import com.mariana.moviedbpi.presentation.MoviesFragment.Companion.MOVIE_ID
 import com.mariana.moviedbpi.presentation.adapter.GenresAdapter
 import com.mariana.moviedbpi.presentation.adapter.MoviesAdapter
 
-class SearchMoviesFragment : Fragment() {
+class SearchMoviesFragment : Fragment(), MovieActionListener {
 
     private lateinit var moviesAdapter: MoviesAdapter
     private lateinit var genresAdapter : GenresAdapter
     private val searchMoviesFragmentViewModel = SearchMoviesViewModel()
+    private lateinit var movieNotFound : View
 
     private var query : String? = null
 
@@ -50,6 +54,9 @@ class SearchMoviesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        movieNotFound = view.findViewById(R.id.viewMovieNotFound)
+
         setupMoviesRecyclerView(view)
         setupGenresRecyclerView(view)
 
@@ -65,11 +72,12 @@ class SearchMoviesFragment : Fragment() {
         searchMoviesFragmentViewModel.getMovies(query)
         setupObserveMoviesList()
         setupObserveGenresList()
+        movieNotFound.visibility = View.GONE
     }
 
     private fun setupGenresRecyclerView(view: View) {
         val rvGenre = view.findViewById<RecyclerView>(R.id.rvGenres)
-        genresAdapter = GenresAdapter()
+        genresAdapter = GenresAdapter(requireContext(), this)
         rvGenre.adapter = genresAdapter
         rvGenre.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -86,8 +94,14 @@ class SearchMoviesFragment : Fragment() {
         searchMoviesFragmentViewModel.moviesLiveData.observe(requireActivity(),
             { response ->
                 response?.let {
-                    moviesAdapter.dataSet = it as MutableList<Movie>
-                    moviesAdapter.notifyDataSetChanged()
+                    if (it.isEmpty()) {
+                        movieNotFound.visibility = View.VISIBLE
+                        moviesAdapter.dataSet.clear()
+                        moviesAdapter.notifyDataSetChanged()
+                    } else {
+                        moviesAdapter.dataSet = it as MutableList<Movie>
+                        moviesAdapter.notifyDataSetChanged()
+                    }
                 }
             })
     }
@@ -96,9 +110,29 @@ class SearchMoviesFragment : Fragment() {
         searchMoviesFragmentViewModel.genresIDLiveData.observe(requireActivity(),
             { response ->
                 response?.let {
-                    genresAdapter.dataSet = it as MutableList<Int>
-                    genresAdapter.notifyDataSetChanged()
+                    if (it.isEmpty()) {
+                        moviesAdapter.dataSet.clear()
+                        moviesAdapter.notifyDataSetChanged()
+                    } else {
+                        genresAdapter.dataSet = it as MutableList<Int>
+                        genresAdapter.notifyDataSetChanged()
+                    }
                 }
             })
+    }
+
+    //TODO: verificar intent
+    override fun openMovieDetailActivity(movieID: Int) {
+        val intent = Intent(context, MovieDetailActivity::class.java)
+        intent.putExtra(MOVIE_ID, movieID)
+        context?.startActivity(intent)
+    }
+
+    override fun filterMoviesByGenre(genresIDs: MutableList<Int>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean) {
+        TODO("Not yet implemented")
     }
 }

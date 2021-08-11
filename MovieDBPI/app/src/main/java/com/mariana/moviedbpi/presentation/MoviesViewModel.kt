@@ -11,8 +11,9 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
-class MoviesViewModel : ViewModel()  {
+class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = null) : ViewModel()  {
 
     private val _moviesLiveDataFromAPI = MutableLiveData<List<Movie>>()
     val moviesLiveDataFromAPI : LiveData<List<Movie>> = _moviesLiveDataFromAPI
@@ -31,48 +32,73 @@ class MoviesViewModel : ViewModel()  {
     //TODO: antes de setar os filmes no moviesLiveData, fazer a chamada no BD (get), fazer a comparação se cada filme que tá vindo
     // da minha API está nos favoritos, caso ele esteja, eu seto o isFavorite como true (e mudo o ícone), e depois seto o valor do moviesLiveData
     fun getMovies() {
-        val favoriteMoviesFromBD = getFavoriteMoviesFromBD()
+        val service = fetchMoviesUseCase.run()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe( { moviesFromAPI ->
+                updateFavoriteStatus(moviesFromAPI.popularMovies)
+            },{
+                errorListener?.onError()
+            })
+    }
 
+    private fun updateFavoriteStatus(moviesFromAPI: List<Movie>?) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = fetchFavoriteMoviesUseCase.run()
+
+            val favoriteMovies = moviesFromAPI?.filter { movie ->
+                response?.find { it.movieID == movie.movieID } != null
+            }
+
+            _moviesLiveDataFromAPI.postValue(moviesFromAPI?.map { movie ->
+                if (favoriteMovies?.find { it.movieID == movie.movieID } != null) {
+                    movie.isFavorite = true
+                }
+                movie
+            })
+        }
+    }
+
+    fun getGenres() {
+        try {
+            val service = fetchGenresUseCase.run()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnError {
+//                    errorListener?.onError()
+//                }
+                .subscribe ({
+                    _genresLiveData.value = it.genres
+                },{
+                    errorListener?.onError()
+                })
+        }
+        catch (e: Exception) {
+            errorListener?.onError()
+        }
+
+    }
+
+    fun getMoviesByGenres(selectedGenres: List<Int>) {
         val service = fetchMoviesUseCase.run()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError {
 
             }
-            .subscribe { moviesFromAPI ->
+            .subscribe { movies ->
 
-                moviesFromAPI?.popularMovies?.forEach { movieFromAPI ->
-                    favoriteMoviesFromBD?.forEach { movieFromDB ->
-                        if (movieFromAPI.genreIDs == movieFromDB.genreIDs) {
-                            movieFromAPI.isFavorite = true
-                        }
+                if (selectedGenres.isNotEmpty()) {
+                    val filteredMovies = movies?.popularMovies?.filter { movie ->
+                        movie.genreIDs.any { it in selectedGenres }
                     }
+
+                    updateFavoriteStatus(filteredMovies)
+
+                } else {
+                    updateFavoriteStatus(movies.popularMovies)
                 }
-
-                _moviesLiveDataFromAPI.value = moviesFromAPI.popularMovies
             }
-    }
 
-    fun getGenres() {
-        val service = fetchGenresUseCase.run()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-
-            }
-            .subscribe {
-                _genresLiveData.value = it.genres
-            }
-    }
-
-    fun getFavoriteMoviesFromBD() : List<Movie>? {
-        var response : List<Movie>? = null
-
-        CoroutineScope(Dispatchers.IO).launch {
-            response = fetchFavoriteMoviesUseCase.run()
-            _moviesLiveDataFromBD.postValue(response)
-        }
-
-        return response
     }
 }
