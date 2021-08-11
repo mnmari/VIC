@@ -1,5 +1,6 @@
 package com.mariana.moviedbpi.presentation
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -24,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
 
     private var edtSearch : EditText? = null
     private lateinit var txtSearchTitle : TextView
-    private lateinit var btnReturn : Button
+    private lateinit var btnReturn : TextView
 
     private lateinit var query : String
 
@@ -35,7 +36,19 @@ class HomeActivity : AppCompatActivity() {
         bindViews()
         setupViews()
         onSearch()
+        onClickBtnReturn()
    }
+
+    private fun onClickBtnReturn() {
+        btnReturn.setOnClickListener {
+            tblMenu.visibility = View.VISIBLE
+            vwpContent.visibility = View.VISIBLE
+            txtSearchTitle.visibility = View.GONE
+            btnReturn.visibility = View.GONE
+            fragmentContainer.visibility = View.GONE
+            edtSearch?.text?.clear()
+        }
+    }
 
     private fun bindViews() {
         vwpContent = findViewById(R.id.vwpContentHomeActivity)

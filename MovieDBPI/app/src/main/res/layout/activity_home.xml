@@ -19,15 +19,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtSearchMovieHomeActivity" />
 
-    <Button
+    <TextView
         android:id="@+id/btnReturn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:gravity="top"
         android:text="@string/activity_home_btnReturn"
-        android:visibility="visible"
+        android:visibility="gone"
         android:textAllCaps="false"
+        android:fontFamily="@font/lato_bold"
         android:textColor="@color/green"
         android:textSize="@dimen/small_sp"
         app:layout_constraintStart_toStartOf="@+id/txtSearchTitle"
@@ -63,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background_color"
-        android:layout_marginTop="@dimen/small_dp"
+        android:layout_marginTop="@dimen/medium_dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtSearchMovieHomeActivity"

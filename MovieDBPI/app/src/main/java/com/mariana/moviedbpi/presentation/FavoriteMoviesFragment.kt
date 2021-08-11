@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,9 @@ class FavoriteMoviesFragment : Fragment(), MovieActionListener {
 
     private lateinit var genresAdapter: GenresAdapter
     private lateinit var moviesAdapter: MoviesAdapter
-    private val favoriteMoviesFragmentViewModel = FavoriteMoviesViewModel()
+    private val favoriteMoviesViewModel = FavoriteMoviesViewModel()
+
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,14 +32,26 @@ class FavoriteMoviesFragment : Fragment(), MovieActionListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         setupGenresRecyclerView(view)
         setupMoviesRecyclerView(view)
 
-        favoriteMoviesFragmentViewModel.getFavoriteMovies()
+        bindProgressBar(view)
+
+        favoriteMoviesViewModel.getFavoriteMovies()
         setupObserveMoviesList()
         setupObserveGenresList()
+    }
 
+    override fun onResume() {
+        super.onResume()
+
+        favoriteMoviesViewModel.getFavoriteMovies()
+        setupObserveMoviesList()
+        setupObserveGenresList()
+    }
+
+    private fun bindProgressBar(view: View) {
+        progressBar = view.findViewById(R.id.progressBar)
     }
 
     private fun setupGenresRecyclerView(view: View) {
@@ -54,21 +69,26 @@ class FavoriteMoviesFragment : Fragment(), MovieActionListener {
     }
 
     private fun setupObserveMoviesList() {
-        favoriteMoviesFragmentViewModel.moviesLiveData.observe(requireActivity(),
+        favoriteMoviesViewModel.moviesLiveData.observe(requireActivity(),
             { response ->
                 response?.let {
-                    moviesAdapter.dataSet.addAll(it) //TODO: verificar a adição de elementos nessa recyclerview
-                    moviesAdapter.notifyDataSetChanged()
+                    if(it.isNotEmpty()) {
+                        moviesAdapter.dataSet = it as MutableList<Movie>
+                        moviesAdapter.notifyDataSetChanged()
+                    }
+                    progressBar.visibility = View.GONE
                 }
             })
     }
 
     private fun setupObserveGenresList() {
-        favoriteMoviesFragmentViewModel.genresIDLiveData.observe(requireActivity(),
+        favoriteMoviesViewModel.genresIDLiveData.observe(requireActivity(),
             { response ->
                 response?.let {
-                    genresAdapter.dataSet = it as MutableList<Int>
-                    genresAdapter.notifyDataSetChanged()
+                    if (it.isNotEmpty()) {
+                        genresAdapter.dataSet = it as MutableList<Int>
+                        genresAdapter.notifyDataSetChanged()
+                    }
                 }
             })
     }
@@ -80,20 +100,20 @@ class FavoriteMoviesFragment : Fragment(), MovieActionListener {
     }
 
     override fun filterMoviesByGenre(genresIDs: MutableList<Int>) {
-        TODO("Not yet implemented")
+        favoriteMoviesViewModel.getMoviesByGenres(genresIDs)
+        setupObserveMoviesList()
     }
 
-    //TODO: ISSO AQUI VAI SER O TESTE DE INTERFACE
     override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean) {
         if (isClicked) {
-            if (!movie.isFavorite) {
-                movie.isFavorite = true
-                favoriteMoviesFragmentViewModel.addFavoriteMovie(movie)
-            }
-            else {
+            if (movie.isFavorite) {
                 movie.isFavorite = false
-                favoriteMoviesFragmentViewModel.deleteFavoriteMovie(movie)
+                favoriteMoviesViewModel.deleteFavoriteMovie(movie)
+                moviesAdapter.notifyDataSetChanged()
             }
+//            favoriteMoviesViewModel.getFavoriteMovies()
+//            setupObserveMoviesList()
+//            setupObserveGenresList()
         }
     }
 }

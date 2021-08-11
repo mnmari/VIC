@@ -23,7 +23,7 @@ class RequestFailedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_failed)
-
+//TODO: Implementar as funções dos botões
 //        bindViews()
 //
 //        btnTryAgain.setOnClickListener {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,8 +20,9 @@ class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListen
 
     private lateinit var genresAdapter: GenresAdapter
     private lateinit var moviesAdapter: MoviesAdapter
-    private val moviesFragmentViewModel = MoviesViewModel(this)
-    private val favoriteMoviesFragmentViewModel = FavoriteMoviesViewModel()
+    private val moviesViewModel = MoviesViewModel(this)
+
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,10 +36,25 @@ class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListen
         setupMoviesRecyclerView(view)
         setupGenresRecyclerView(view)
 
-        moviesFragmentViewModel.getMovies()
+        bindProgressBar(view)
+
+        moviesViewModel.getMovies()
         setupObserveMoviesList()
 
-        moviesFragmentViewModel.getGenres()
+        moviesViewModel.getGenres()
+        setupObserveGenresList()
+    }
+
+    private fun bindProgressBar(view: View) {
+        progressBar = view.findViewById(R.id.progressBar)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        moviesViewModel.getMovies()
+        moviesViewModel.getGenres()
+        setupObserveMoviesList()
         setupObserveGenresList()
     }
 
@@ -57,17 +74,18 @@ class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListen
     }
 
     private fun setupObserveMoviesList() {
-        moviesFragmentViewModel.moviesLiveDataFromAPI.observe(requireActivity(),
+        moviesViewModel.moviesLiveDataFromAPI.observe(requireActivity(),
             { response ->
                 response?.let {
                     moviesAdapter.dataSet = it as MutableList<Movie>
                     moviesAdapter.notifyDataSetChanged()
+                    progressBar.visibility = View.GONE
                 }
             })
     }
 
     private fun setupObserveGenresList() {
-        moviesFragmentViewModel.genresLiveData.observe(requireActivity(),
+        moviesViewModel.genresLiveData.observe(requireActivity(),
             { response ->
                 response?.let {
                     genresAdapter.dataSet.addAll(it.map {it.genreID})
@@ -83,7 +101,7 @@ class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListen
     }
 
     override fun filterMoviesByGenre(genresIDs: MutableList<Int>) {
-        moviesFragmentViewModel.getMoviesByGenres(genresIDs)
+        moviesViewModel.getMoviesByGenres(genresIDs)
         setupObserveMoviesList()
     }
 
@@ -91,20 +109,18 @@ class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListen
         const val MOVIE_ID = "movieID"
     }
 
-    //TODO: fazer uma comparação dos filmes que vieram da API com os filmes salvos em favoritos.
-    // Salvar a lista de filmes favoritos,
-    // colocar usecases de favorito na viewmodel de filmes
+    // TODO: colocar usecases de favoritos na viewmodel de filmes
     override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean) {
-
         if (isClicked) {
             if (!movie.isFavorite) {
                 movie.isFavorite = true
-                favoriteMoviesFragmentViewModel.addFavoriteMovie(movie)
+                moviesViewModel.addFavoriteMovie(movie)
                 moviesAdapter.notifyDataSetChanged()
             }
             else {
                 movie.isFavorite = false
-                favoriteMoviesFragmentViewModel.deleteFavoriteMovie(movie)
+                moviesViewModel.deleteFavoriteMovie(movie)
+                moviesAdapter.notifyDataSetChanged()
             }
         }
     }
@@ -113,5 +129,4 @@ class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListen
         val intent = Intent(context, RequestFailedActivity::class.java)
         context?.startActivity(intent)
     }
-
 }
