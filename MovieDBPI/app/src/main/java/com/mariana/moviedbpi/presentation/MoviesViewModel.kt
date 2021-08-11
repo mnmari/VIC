@@ -18,8 +18,7 @@ class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = n
     private val _moviesLiveDataFromAPI = MutableLiveData<List<Movie>>()
     val moviesLiveDataFromAPI : LiveData<List<Movie>> = _moviesLiveDataFromAPI
 
-    private val _moviesLiveDataFromBD = MutableLiveData<List<Movie>>()
-    val moviesLiveDataFromDB : LiveData<List<Movie>> = _moviesLiveDataFromBD
+    private val _favoriteMoviesLiveDataFromBD = MutableLiveData<List<Movie>>()
 
     private val _genresLiveData = MutableLiveData<List<Genres>>()
     val genresLiveData : LiveData<List<Genres>> = _genresLiveData
@@ -27,10 +26,9 @@ class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = n
     private val fetchMoviesUseCase = FetchMoviesUseCase()
     private val fetchGenresUseCase = FetchGenresUseCase()
     private val fetchFavoriteMoviesUseCase = FetchFavoriteMoviesUseCase()
+    private val addFavoriteMovieUseCase = AddFavoriteMovieUseCase()
+    private val deleteFavoriteMovieUseCase = DeleteFavoriteMovieUseCase()
 
-    //TODO: getMovies recebe uma função como argumento e ela estará implementada na minha fragment (pra mandar pra tela de erro
-    //TODO: antes de setar os filmes no moviesLiveData, fazer a chamada no BD (get), fazer a comparação se cada filme que tá vindo
-    // da minha API está nos favoritos, caso ele esteja, eu seto o isFavorite como true (e mudo o ícone), e depois seto o valor do moviesLiveData
     fun getMovies() {
         val service = fetchMoviesUseCase.run()
             .subscribeOn(Schedulers.io())
@@ -42,7 +40,7 @@ class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = n
             })
     }
 
-    private fun updateFavoriteStatus(moviesFromAPI: List<Movie>?) {
+    fun updateFavoriteStatus(moviesFromAPI: List<Movie>?) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = fetchFavoriteMoviesUseCase.run()
 
@@ -59,24 +57,33 @@ class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = n
         }
     }
 
-    fun getGenres() {
-        try {
-            val service = fetchGenresUseCase.run()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnError {
-//                    errorListener?.onError()
-//                }
-                .subscribe ({
-                    _genresLiveData.value = it.genres
-                },{
-                    errorListener?.onError()
-                })
-        }
-        catch (e: Exception) {
-            errorListener?.onError()
-        }
+    fun addFavoriteMovie(movie: Movie) {
+        CoroutineScope(Dispatchers.IO).launch {
+            addFavoriteMovieUseCase.run(movie)
 
+            val favoriteMovie = _favoriteMoviesLiveDataFromBD.value?.find { it.movieID == movie.movieID }
+            favoriteMovie?.isFavorite = true
+        }
+    }
+
+    fun deleteFavoriteMovie(movie: Movie) {
+        CoroutineScope(Dispatchers.IO).launch {
+            deleteFavoriteMovieUseCase.run(movie)
+
+            val favoriteMovie = _favoriteMoviesLiveDataFromBD.value?.find {it.movieID == movie.movieID}
+            favoriteMovie?.isFavorite = false
+        }
+    }
+
+    fun getGenres() {
+        val service = fetchGenresUseCase.run()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe ({
+                _genresLiveData.value = it.genres
+            },{
+                errorListener?.onError()
+            })
     }
 
     fun getMoviesByGenres(selectedGenres: List<Int>) {
@@ -99,6 +106,5 @@ class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = n
                     updateFavoriteStatus(movies.popularMovies)
                 }
             }
-
     }
 }

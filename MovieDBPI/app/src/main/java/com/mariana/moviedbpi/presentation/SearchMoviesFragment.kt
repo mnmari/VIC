@@ -6,23 +6,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mariana.moviedbpi.R
+import com.mariana.moviedbpi.domain.DoOnErrorOnRequestListener
 import com.mariana.moviedbpi.domain.MovieActionListener
 import com.mariana.moviedbpi.domain.entity.Movie
 import com.mariana.moviedbpi.presentation.MoviesFragment.Companion.MOVIE_ID
 import com.mariana.moviedbpi.presentation.adapter.GenresAdapter
 import com.mariana.moviedbpi.presentation.adapter.MoviesAdapter
 
-class SearchMoviesFragment : Fragment(), MovieActionListener {
+class SearchMoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListener {
 
     private lateinit var moviesAdapter: MoviesAdapter
     private lateinit var genresAdapter : GenresAdapter
-    private val searchMoviesFragmentViewModel = SearchMoviesViewModel()
+    private val searchMoviesViewModel = SearchMoviesViewModel()
     private lateinit var movieNotFound : View
+
+    private lateinit var progressBar: ProgressBar
 
     private var query : String? = null
 
@@ -55,7 +59,7 @@ class SearchMoviesFragment : Fragment(), MovieActionListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        movieNotFound = view.findViewById(R.id.viewMovieNotFound)
+        bindViews(view)
 
         setupMoviesRecyclerView(view)
         setupGenresRecyclerView(view)
@@ -67,9 +71,14 @@ class SearchMoviesFragment : Fragment(), MovieActionListener {
         }
     }
 
+    private fun bindViews(view: View) {
+        movieNotFound = view.findViewById(R.id.viewMovieNotFound)
+        progressBar = view.findViewById(R.id.progressBar)
+    }
+
     fun updateQuery(query: Uri) {
 
-        searchMoviesFragmentViewModel.getMovies(query)
+        searchMoviesViewModel.getMovies(query)
         setupObserveMoviesList()
         setupObserveGenresList()
         movieNotFound.visibility = View.GONE
@@ -85,13 +94,13 @@ class SearchMoviesFragment : Fragment(), MovieActionListener {
 
     private fun setupMoviesRecyclerView(view: View) {
         val rvMovies = view.findViewById<RecyclerView>(R.id.rvMovies)
-        moviesAdapter = MoviesAdapter(requireContext())
+        moviesAdapter = MoviesAdapter(requireContext(), this)
         rvMovies.adapter = moviesAdapter
         rvMovies.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun setupObserveMoviesList() {
-        searchMoviesFragmentViewModel.moviesLiveData.observe(requireActivity(),
+        searchMoviesViewModel.moviesLiveData.observe(requireActivity(),
             { response ->
                 response?.let {
                     if (it.isEmpty()) {
@@ -101,13 +110,14 @@ class SearchMoviesFragment : Fragment(), MovieActionListener {
                     } else {
                         moviesAdapter.dataSet = it as MutableList<Movie>
                         moviesAdapter.notifyDataSetChanged()
+                        progressBar.visibility = View.GONE
                     }
                 }
             })
     }
 
     private fun setupObserveGenresList() {
-        searchMoviesFragmentViewModel.genresIDLiveData.observe(requireActivity(),
+        searchMoviesViewModel.genresIDLiveData.observe(requireActivity(),
             { response ->
                 response?.let {
                     if (it.isEmpty()) {
@@ -133,6 +143,21 @@ class SearchMoviesFragment : Fragment(), MovieActionListener {
     }
 
     override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean) {
-        TODO("Not yet implemented")
+        if (isClicked) {
+            if (!movie.isFavorite) {
+                movie.isFavorite = true
+                searchMoviesViewModel.addFavoriteMovie(movie)
+                moviesAdapter.notifyDataSetChanged()
+            }
+            else {
+                movie.isFavorite = false
+                searchMoviesViewModel.deleteFavoriteMovie(movie)
+                moviesAdapter.notifyDataSetChanged()
+            }
+        }    }
+
+    override fun onError() {
+        val intent = Intent(context, RequestFailedActivity::class.java)
+        context?.startActivity(intent)
     }
 }

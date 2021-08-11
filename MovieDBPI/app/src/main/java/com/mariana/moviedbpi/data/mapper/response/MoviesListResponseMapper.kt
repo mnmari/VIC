@@ -7,7 +7,6 @@ import com.mariana.moviedbpi.domain.entity.Movie
 import com.mariana.moviedbpi.domain.entity.PopularMovies
 import com.mariana.moviedbpi.domain.entity.SearchMovies
 
-//TODO: ISSO AQUI VAI SER UM TESTE UNITÁRIO
 class MoviesListResponseMapper{
     fun mapPopularMovies(popularMoviesResponse : PopularMoviesResponse) = PopularMovies(
         popularMovies = popularMoviesResponse.popularMovies.map {mapMovies(it)}

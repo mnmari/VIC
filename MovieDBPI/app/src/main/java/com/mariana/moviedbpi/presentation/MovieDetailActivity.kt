@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mariana.moviedbpi.R
 import com.mariana.moviedbpi.domain.DoOnErrorOnRequestListener
+import com.mariana.moviedbpi.domain.MovieActionListener
 import com.mariana.moviedbpi.domain.entity.Genres
+import com.mariana.moviedbpi.domain.entity.Movie
 import com.mariana.moviedbpi.presentation.adapter.CastAdapter
 import com.mariana.moviedbpi.presentation.adapter.MovieDetailGenresAdapter
 
@@ -54,6 +56,10 @@ class MovieDetailActivity() : AppCompatActivity(), DoOnErrorOnRequestListener {
         movieDetailViewModel.getMovieCast(movieID)
         setupObservableMovieCast()
 
+        onClickBtnReturn()
+    }
+
+    private fun onClickBtnReturn() {
         btnReturn.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)

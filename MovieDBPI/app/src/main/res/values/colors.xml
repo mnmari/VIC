@@ -20,6 +20,6 @@
     <color name="grey_movie_detail">#9A9BB2</color>
     <color name="yellow_1">#FCC419</color>
 
-    <color name="buttonGenreUnchecked">#2628303D</color>
+    <color name="buttonGenreUnchecked">#C5C5C5</color>
     <color name="buttonGenreChecked">#223324</color>
 </resources>

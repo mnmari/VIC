@@ -1,11 +1,8 @@
 package com.mariana.moviedbpi.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mariana.moviedbpi.domain.AddFavoriteMovieUseCase
 import com.mariana.moviedbpi.domain.DeleteFavoriteMovieUseCase
 import com.mariana.moviedbpi.domain.FetchFavoriteMoviesUseCase
 import com.mariana.moviedbpi.domain.entity.Movie
@@ -22,7 +19,6 @@ class FavoriteMoviesViewModel : ViewModel() {
     val genresIDLiveData : LiveData<List<Int>> = _genresIDLiveData
 
     private val fetchFavoriteMoviesUseCase = FetchFavoriteMoviesUseCase()
-    private val addFavoriteMovieUseCase = AddFavoriteMovieUseCase()
     private val deleteFavoriteMovieUseCase = DeleteFavoriteMovieUseCase()
 
     fun getFavoriteMovies() : List<Movie>? {
@@ -37,19 +33,30 @@ class FavoriteMoviesViewModel : ViewModel() {
         return response
     }
 
-    fun addFavoriteMovie(movie: Movie) {
-        CoroutineScope(Dispatchers.IO).launch {
-            addFavoriteMovieUseCase.run(movie)
-
-            val favoriteMovie = _moviesLiveData.value?.find { it.movieID == movie.movieID }
-            favoriteMovie?.isFavorite = true
-        }
-    }
-
     fun deleteFavoriteMovie(movie: Movie) {
         CoroutineScope(Dispatchers.IO).launch {
             deleteFavoriteMovieUseCase.run(movie)
-            getFavoriteMovies()
+
+            val favoriteMovie = _moviesLiveData.value?.find { it.movieID == movie.movieID }
+            favoriteMovie?.isFavorite = false
+        }
+    }
+
+    //TODO: Consertar a lógica do filtro
+    fun getMoviesByGenres(selectedGenres: List<Int>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = fetchFavoriteMoviesUseCase.run()
+
+            if (selectedGenres.isNotEmpty()) {
+                val filteredMovies = response?.filter { movie ->
+                    movie.genreIDs.any { it in selectedGenres }
+                }
+
+                _moviesLiveData.postValue(filteredMovies)
+
+            } else {
+                _moviesLiveData.postValue(response)
+            }
         }
     }
 }
