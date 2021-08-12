@@ -11,12 +11,13 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = null) : ViewModel()  {
 
     private val _moviesLiveDataFromAPI = MutableLiveData<List<Movie>>()
     val moviesLiveDataFromAPI : LiveData<List<Movie>> = _moviesLiveDataFromAPI
+
+    private lateinit var completeMovieList : List<Movie>
 
     private val _favoriteMoviesLiveDataFromBD = MutableLiveData<List<Movie>>()
 
@@ -35,6 +36,7 @@ class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = n
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe( { moviesFromAPI ->
                 updateFavoriteStatus(moviesFromAPI.popularMovies)
+                completeMovieList = moviesFromAPI.popularMovies
             },{
                 errorListener?.onError()
             })
@@ -87,23 +89,16 @@ class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = n
     }
 
     fun getMoviesByGenres(selectedGenres: List<Int>) {
-        val service = fetchMoviesUseCase.run()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({ movies ->
 
-                if (selectedGenres.isNotEmpty()) {
-                    val filteredMovies = movies?.popularMovies?.filter { movie ->
-                        movie.genreIDs.containsAll(selectedGenres)
-                    }
+        if (selectedGenres.isNotEmpty()) {
+            val filteredMovies = completeMovieList.filter { movie ->
+                movie.genreIDs.containsAll(selectedGenres)
+            }
 
-                    updateFavoriteStatus(filteredMovies)
+            updateFavoriteStatus(filteredMovies)
 
-                } else {
-                    updateFavoriteStatus(movies.popularMovies)
-                }
-            },{
-                errorListener?.onError()
-            })
+        } else {
+            updateFavoriteStatus(completeMovieList)
+        }
     }
 }

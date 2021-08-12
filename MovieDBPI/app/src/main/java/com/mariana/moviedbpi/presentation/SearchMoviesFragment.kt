@@ -23,7 +23,7 @@ class SearchMoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequest
 
     private lateinit var moviesAdapter: MoviesAdapter
     private lateinit var genresAdapter : GenresAdapter
-    private val searchMoviesViewModel = SearchMoviesViewModel()
+    private val searchMoviesViewModel = SearchMoviesViewModel(this)
     private lateinit var movieNotFound : View
 
     private lateinit var progressBar: ProgressBar
@@ -137,8 +137,8 @@ class SearchMoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequest
         context?.startActivity(intent)
     }
 
-    override fun filterMoviesByGenre(genresIDs: MutableList<Int>) {
-        TODO("Not yet implemented")
+    override fun filterMoviesByGenre(selectedGenres: MutableList<Int>) {
+        searchMoviesViewModel.getMoviesByGenres(selectedGenres)
     }
 
     override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean, position: Int) {

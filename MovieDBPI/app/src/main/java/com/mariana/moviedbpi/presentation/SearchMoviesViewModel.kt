@@ -4,10 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mariana.moviedbpi.domain.AddFavoriteMovieUseCase
-import com.mariana.moviedbpi.domain.DeleteFavoriteMovieUseCase
-import com.mariana.moviedbpi.domain.FetchFavoriteMoviesUseCase
-import com.mariana.moviedbpi.domain.SearchMoviesUseCase
+import com.mariana.moviedbpi.domain.*
 import com.mariana.moviedbpi.domain.entity.Movie
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,12 +12,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SearchMoviesViewModel : ViewModel() {
-
-    //TODO: Colocar a função de filtrar por gênero nessa viewmodel
+class SearchMoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = null) : ViewModel() {
 
     private val _moviesLiveData = MutableLiveData<List<Movie>>()
     val moviesLiveData : LiveData<List<Movie>> = _moviesLiveData
+
+    private lateinit var completeMovieList : List<Movie>
 
     private val _genresIDLiveData = MutableLiveData<List<Int>>()
     val genresIDLiveData : LiveData<List<Int>> = _genresIDLiveData
@@ -36,13 +33,13 @@ class SearchMoviesViewModel : ViewModel() {
         val service = searchMoviesUseCase.run(queryURI)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-
-            }
-            .subscribe {
-                _moviesLiveData.value = it.foundMovies
+            .subscribe ({
+                updateFavoriteStatus(it.foundMovies)
+                completeMovieList = it.foundMovies
                 _genresIDLiveData.value = it.foundMovies.map { movies -> movies.genreIDs }.flatten().distinct()
-            }
+            },{
+                errorListener?.onError()
+            })
     }
 
     fun addFavoriteMovie(movie: Movie) {
@@ -77,6 +74,20 @@ class SearchMoviesViewModel : ViewModel() {
                 }
                 movie
             })
+        }
+    }
+
+    fun getMoviesByGenres(selectedGenres: List<Int>) {
+
+        if (selectedGenres.isNotEmpty()) {
+            val filteredMovies = completeMovieList.filter { movie ->
+                movie.genreIDs.containsAll(selectedGenres)
+            }
+
+            updateFavoriteStatus(filteredMovies)
+
+        } else {
+            updateFavoriteStatus(completeMovieList)
         }
     }
 }

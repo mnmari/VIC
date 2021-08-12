@@ -57,7 +57,6 @@ class FavoriteMoviesViewModel(private val onFavoriteDeletedListener: OnFavoriteD
         onFavoriteDeletedListener.onGenreChanged()
     }
 
-    //TODO: Consertar a lógica do filtro
     fun getMoviesByGenres(selectedGenres: List<Int>) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = fetchFavoriteMoviesUseCase.run()
