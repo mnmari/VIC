@@ -90,14 +90,11 @@ class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = n
         val service = fetchMoviesUseCase.run()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-
-            }
-            .subscribe { movies ->
+            .subscribe ({ movies ->
 
                 if (selectedGenres.isNotEmpty()) {
                     val filteredMovies = movies?.popularMovies?.filter { movie ->
-                        movie.genreIDs.any { it in selectedGenres }
+                        movie.genreIDs.containsAll(selectedGenres)
                     }
 
                     updateFavoriteStatus(filteredMovies)
@@ -105,6 +102,8 @@ class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = n
                 } else {
                     updateFavoriteStatus(movies.popularMovies)
                 }
-            }
+            },{
+                errorListener?.onError()
+            })
     }
 }

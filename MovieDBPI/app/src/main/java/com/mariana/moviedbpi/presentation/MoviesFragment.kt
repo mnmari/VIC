@@ -109,18 +109,17 @@ class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListen
         const val MOVIE_ID = "movieID"
     }
 
-    // TODO: colocar usecases de favoritos na viewmodel de filmes
-    override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean) {
+    override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean, position: Int) {
         if (isClicked) {
             if (!movie.isFavorite) {
                 movie.isFavorite = true
                 moviesViewModel.addFavoriteMovie(movie)
-                moviesAdapter.notifyDataSetChanged()
+                moviesAdapter.notifyItemChanged(position)
             }
             else {
                 movie.isFavorite = false
                 moviesViewModel.deleteFavoriteMovie(movie)
-                moviesAdapter.notifyDataSetChanged()
+                moviesAdapter.notifyItemChanged(position)
             }
         }
     }

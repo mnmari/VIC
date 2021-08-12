@@ -61,8 +61,7 @@ class MovieDetailActivity() : AppCompatActivity(), DoOnErrorOnRequestListener {
 
     private fun onClickBtnReturn() {
         btnReturn.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
     }
 

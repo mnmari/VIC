@@ -131,7 +131,6 @@ class SearchMoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequest
             })
     }
 
-    //TODO: verificar intent
     override fun openMovieDetailActivity(movieID: Int) {
         val intent = Intent(context, MovieDetailActivity::class.java)
         intent.putExtra(MOVIE_ID, movieID)
@@ -142,19 +141,20 @@ class SearchMoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequest
         TODO("Not yet implemented")
     }
 
-    override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean) {
+    override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean, position: Int) {
         if (isClicked) {
             if (!movie.isFavorite) {
                 movie.isFavorite = true
                 searchMoviesViewModel.addFavoriteMovie(movie)
-                moviesAdapter.notifyDataSetChanged()
+                moviesAdapter.notifyItemChanged(position)
             }
             else {
                 movie.isFavorite = false
                 searchMoviesViewModel.deleteFavoriteMovie(movie)
-                moviesAdapter.notifyDataSetChanged()
+                moviesAdapter.notifyItemChanged(position)
             }
-        }    }
+        }
+    }
 
     override fun onError() {
         val intent = Intent(context, RequestFailedActivity::class.java)

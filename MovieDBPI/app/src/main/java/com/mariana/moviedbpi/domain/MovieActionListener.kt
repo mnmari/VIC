@@ -6,5 +6,5 @@ interface MovieActionListener {
 
     fun openMovieDetailActivity(movieID: Int)
     fun filterMoviesByGenre(genresIDs: MutableList<Int>)
-    fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean)
+    fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean, position: Int)
 }

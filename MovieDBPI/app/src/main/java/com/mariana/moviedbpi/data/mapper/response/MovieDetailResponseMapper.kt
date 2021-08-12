@@ -15,5 +15,6 @@ class MovieDetailResponseMapper(
         releaseDate = movieDetailResponse.releaseDate,
         userRating = movieDetailResponse.userRating,
         runtime = movieDetailResponse.runtime,
-        overview = movieDetailResponse.overview)
+        overview = movieDetailResponse.overview,
+        isFavorite = true )
 }
