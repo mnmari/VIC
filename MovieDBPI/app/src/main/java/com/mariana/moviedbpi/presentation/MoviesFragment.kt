@@ -45,10 +45,6 @@ class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListen
         setupObserveGenresList()
     }
 
-    private fun bindProgressBar(view: View) {
-        progressBar = view.findViewById(R.id.progressBar)
-    }
-
     override fun onResume() {
         super.onResume()
 
@@ -56,6 +52,10 @@ class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListen
         moviesViewModel.getGenres()
         setupObserveMoviesList()
         setupObserveGenresList()
+    }
+
+    private fun bindProgressBar(view: View) {
+        progressBar = view.findViewById(R.id.progressBar)
     }
 
     private fun setupGenresRecyclerView(view: View) {
@@ -102,7 +102,6 @@ class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListen
 
     override fun filterMoviesByGenre(genresIDs: MutableList<Int>) {
         moviesViewModel.getMoviesByGenres(genresIDs)
-        setupObserveMoviesList()
     }
 
     companion object {
