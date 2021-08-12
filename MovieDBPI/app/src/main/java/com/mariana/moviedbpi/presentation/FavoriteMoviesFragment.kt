@@ -11,15 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mariana.moviedbpi.R
 import com.mariana.moviedbpi.domain.MovieActionListener
+import com.mariana.moviedbpi.domain.OnFavoriteDeletedListener
 import com.mariana.moviedbpi.domain.entity.Movie
 import com.mariana.moviedbpi.presentation.adapter.GenresAdapter
 import com.mariana.moviedbpi.presentation.adapter.MoviesAdapter
 
-class FavoriteMoviesFragment : Fragment(), MovieActionListener {
+class FavoriteMoviesFragment : Fragment(), MovieActionListener, OnFavoriteDeletedListener {
 
     private lateinit var genresAdapter: GenresAdapter
     private lateinit var moviesAdapter: MoviesAdapter
-    private val favoriteMoviesViewModel = FavoriteMoviesViewModel()
+    private val favoriteMoviesViewModel = FavoriteMoviesViewModel(this)
 
     private lateinit var progressBar: ProgressBar
 
@@ -75,6 +76,8 @@ class FavoriteMoviesFragment : Fragment(), MovieActionListener {
                     if(it.isNotEmpty()) {
                         moviesAdapter.dataSet = it as MutableList<Movie>
                         moviesAdapter.notifyDataSetChanged()
+                    } else {
+                        moviesAdapter.dataSet = mutableListOf()
                     }
                     progressBar.visibility = View.GONE
                 }
@@ -88,6 +91,8 @@ class FavoriteMoviesFragment : Fragment(), MovieActionListener {
                     if (it.isNotEmpty()) {
                         genresAdapter.dataSet = it as MutableList<Int>
                         genresAdapter.notifyDataSetChanged()
+                    } else {
+                        genresAdapter.dataSet = mutableListOf()
                     }
                 }
             })
@@ -104,16 +109,21 @@ class FavoriteMoviesFragment : Fragment(), MovieActionListener {
         setupObserveMoviesList()
     }
 
-    override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean) {
+    override fun onFavoriteClickedListener(movie: Movie, isClicked: Boolean, position: Int) {
         if (isClicked) {
             if (movie.isFavorite) {
                 movie.isFavorite = false
-                favoriteMoviesViewModel.deleteFavoriteMovie(movie)
-                moviesAdapter.notifyDataSetChanged()
+                favoriteMoviesViewModel.deleteFavoriteMovie(movie, position)
             }
-//            favoriteMoviesViewModel.getFavoriteMovies()
-//            setupObserveMoviesList()
-//            setupObserveGenresList()
         }
+    }
+
+    override fun onFavoriteDeleted(position: Int) {
+        moviesAdapter.notifyItemRemoved(position)
+        favoriteMoviesViewModel.updateGenresList()
+    }
+
+    override fun onGenreChanged() {
+        genresAdapter.notifyDataSetChanged()
     }
 }

@@ -51,7 +51,7 @@ class MoviesAdapter(private val context: Context, private val movieActionListene
         }
 
         viewHolder.itemIsFavorite.setOnClickListener {
-            movieActionListener?.onFavoriteClickedListener(dataSet[position], true)
+            movieActionListener?.onFavoriteClickedListener(dataSet[position], true, position)
         }
 
     }

@@ -17,6 +17,8 @@ import kotlinx.coroutines.launch
 
 class SearchMoviesViewModel : ViewModel() {
 
+    //TODO: Colocar a função de filtrar por gênero nessa viewmodel
+
     private val _moviesLiveData = MutableLiveData<List<Movie>>()
     val moviesLiveData : LiveData<List<Movie>> = _moviesLiveData
 

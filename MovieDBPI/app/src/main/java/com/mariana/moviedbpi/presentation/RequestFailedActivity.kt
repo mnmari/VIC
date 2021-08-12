@@ -17,23 +17,25 @@ import com.mariana.moviedbpi.presentation.adapter.MovieDetailGenresAdapter
 
 class RequestFailedActivity : AppCompatActivity() {
 
-//    private lateinit var btnExitErrorScreen: Button
-//    private lateinit var btnTryAgain: Button
+    private lateinit var btnExitErrorScreen: ImageButton
+    private lateinit var btnTryAgain: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_failed)
-//TODO: Implementar as funções dos botões
-//        bindViews()
-//
-//        btnTryAgain.setOnClickListener {
-//            val intent = Intent(this, HomeActivity::class.java)
-//            startActivity(intent)
-//        }
+        bindViews()
+
+        btnExitErrorScreen.setOnClickListener {
+            onBackPressed()
+        }
+
+        btnTryAgain.setOnClickListener {
+            onBackPressed()
+        }
     }
 
-//    private fun bindViews() {
-//        btnExitErrorScreen = findViewById(R.id.btnExitErrorScreen)
-//        btnTryAgain = findViewById(R.id.btnTryAgain)
-//    }
+    private fun bindViews() {
+        btnExitErrorScreen = findViewById(R.id.btnExitErrorScreen)
+        btnTryAgain = findViewById(R.id.btnTryAgain)
+    }
 }
