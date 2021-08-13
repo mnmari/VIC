@@ -9,12 +9,16 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mariana.moviedbpi.R
 import com.mariana.moviedbpi.presentation.adapter.HomeActivityFragmentsAdapter
+
+private const val FIRST_FRAGMENT_TITLE = "Todos os filmes"
+private const val SECOND_FRAGMENT_TITLE = "Favoritos"
 
 class HomeActivity : AppCompatActivity() {
 
@@ -39,8 +43,10 @@ class HomeActivity : AppCompatActivity() {
         onClickBtnReturn()
    }
 
+
     private fun onClickBtnReturn() {
         btnReturn.setOnClickListener {
+//            tblMenu.isVisible = true
             tblMenu.visibility = View.VISIBLE
             vwpContent.visibility = View.VISIBLE
             txtSearchTitle.visibility = View.GONE
@@ -75,6 +81,7 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
+    //TODO: isVisible
     private fun changeVisibilityFromSearchToHome(s: Editable?) {
         if (s != null) {
             if (s.isEmpty()) {
@@ -133,8 +140,8 @@ class HomeActivity : AppCompatActivity() {
         }.attach()
     }
 
-    companion object {
-        private const val FIRST_FRAGMENT_TITLE = "Todos os filmes"
-        private const val SECOND_FRAGMENT_TITLE = "Favoritos"
-    }
+//    companion object {
+//        private const val FIRST_FRAGMENT_TITLE = "Todos os filmes"
+//        private const val SECOND_FRAGMENT_TITLE = "Favoritos"
+//    }
 }

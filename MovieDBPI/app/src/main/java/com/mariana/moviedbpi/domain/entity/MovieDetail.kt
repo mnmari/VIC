@@ -10,7 +10,7 @@ data class MovieDetail(
     val userRating: Float,
     val runtime: Int,
     val overview: String,
-    val isFavorite: Boolean ){
+    var isFavorite: Boolean = false ){
 
     fun showUserRatingString() : String {
         return "${"%.0f".format((userRating * 10.0))}%"

@@ -8,6 +8,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.mariana.moviedbpi.presentation.FavoriteMoviesFragment
 import com.mariana.moviedbpi.presentation.MoviesFragment
 
+private const val NUMBER_OF_FRAGMENTS = 2
+
 class HomeActivityFragmentsAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
     override fun getItemCount(): Int = NUMBER_OF_FRAGMENTS
@@ -20,8 +22,8 @@ class HomeActivityFragmentsAdapter(fa: FragmentActivity) : FragmentStateAdapter(
         }
     }
 
-    companion object {
-        private const val NUMBER_OF_FRAGMENTS = 2
-    }
+//    companion object {
+//        private const val NUMBER_OF_FRAGMENTS = 2
+//    }
 }
 

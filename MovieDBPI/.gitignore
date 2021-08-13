@@ -7,10 +7,10 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-/app/src/main/java/com.mariana.moviedbpi/data/model/Constants.kt
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+/app/src/main/java/com/mariana/moviedbpi/data/model/PrivateKey.kt

@@ -37,7 +37,7 @@ class FavoriteMoviesViewModel(private val onFavoriteDeletedListener: OnFavoriteD
 
     fun deleteFavoriteMovie(movie: Movie, position: Int) {
         val job = CoroutineScope(Dispatchers.IO).async {
-            deleteFavoriteMovieUseCase.run(movie)
+            deleteFavoriteMovieUseCase.fromMovieToMovieDB(movie)
 
             val favoriteMovie =  _moviesLiveData.value?.find { it.movieID == movie.movieID }
             val moviesMutableList = _moviesLiveData.value?.toMutableList()

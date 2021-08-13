@@ -61,7 +61,7 @@ class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = n
 
     fun addFavoriteMovie(movie: Movie) {
         CoroutineScope(Dispatchers.IO).launch {
-            addFavoriteMovieUseCase.run(movie)
+            addFavoriteMovieUseCase.fromMovieToMovieDB(movie)
 
             val favoriteMovie = _favoriteMoviesLiveDataFromBD.value?.find { it.movieID == movie.movieID }
             favoriteMovie?.isFavorite = true
@@ -70,7 +70,7 @@ class MoviesViewModel(private val errorListener: DoOnErrorOnRequestListener? = n
 
     fun deleteFavoriteMovie(movie: Movie) {
         CoroutineScope(Dispatchers.IO).launch {
-            deleteFavoriteMovieUseCase.run(movie)
+            deleteFavoriteMovieUseCase.fromMovieToMovieDB(movie)
 
             val favoriteMovie = _favoriteMoviesLiveDataFromBD.value?.find {it.movieID == movie.movieID}
             favoriteMovie?.isFavorite = false
