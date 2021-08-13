@@ -16,5 +16,5 @@ class MovieDetailResponseMapper(
         userRating = movieDetailResponse.userRating,
         runtime = movieDetailResponse.runtime,
         overview = movieDetailResponse.overview,
-        isFavorite = true )
+        isFavorite = false )
 }

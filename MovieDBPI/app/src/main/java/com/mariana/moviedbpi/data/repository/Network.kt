@@ -1,6 +1,7 @@
 package com.mariana.moviedbpi.data.repository
 
 import com.mariana.moviedbpi.data.model.Constants
+import com.mariana.moviedbpi.data.model.PrivateKey
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,7 +21,7 @@ object Network {
             val originalHttpUrl = original.url()
 
             val url = originalHttpUrl.newBuilder()
-                .addQueryParameter("api_key", Constants.PRIVATE_KEY.value)
+                .addQueryParameter("api_key", PrivateKey.PRIVATE_KEY.value)
                 .addQueryParameter("language", Constants.LANGUAGE.value)
                 .build()
 

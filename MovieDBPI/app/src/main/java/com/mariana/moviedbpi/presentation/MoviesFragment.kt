@@ -84,6 +84,7 @@ class MoviesFragment : Fragment(), MovieActionListener, DoOnErrorOnRequestListen
             })
     }
 
+    //TODO: atualizar pelos filmes
     private fun setupObserveGenresList() {
         moviesViewModel.genresLiveData.observe(requireActivity(),
             { response ->

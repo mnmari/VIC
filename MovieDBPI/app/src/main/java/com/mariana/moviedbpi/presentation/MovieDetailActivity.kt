@@ -11,28 +11,28 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mariana.moviedbpi.R
 import com.mariana.moviedbpi.domain.DoOnErrorOnRequestListener
-import com.mariana.moviedbpi.domain.MovieActionListener
 import com.mariana.moviedbpi.domain.entity.Genres
-import com.mariana.moviedbpi.domain.entity.Movie
+import com.mariana.moviedbpi.domain.entity.MovieDetail
 import com.mariana.moviedbpi.presentation.adapter.CastAdapter
 import com.mariana.moviedbpi.presentation.adapter.MovieDetailGenresAdapter
 
-class MovieDetailActivity() : AppCompatActivity(), DoOnErrorOnRequestListener {
+class MovieDetailActivity : AppCompatActivity(), DoOnErrorOnRequestListener {
 
-    private var movieID: Int = 0
+    private var movieID : Int = 0
 
-    private lateinit var moviePoster: ImageView
-    private lateinit var movieTitle: TextView
-    private lateinit var movieYear: TextView
-    private lateinit var movieRating: TextView
-    private lateinit var movieRuntime: TextView
-    private lateinit var movieOverview: TextView
-    private lateinit var movieUserRating: TextView
+    private lateinit var moviePoster : ImageView
+    private lateinit var movieTitle : TextView
+    private lateinit var movieYear : TextView
+    private lateinit var movieRating : TextView
+    private lateinit var movieRuntime : TextView
+    private lateinit var movieOverview : TextView
+    private lateinit var movieUserRating : TextView
 
-    private lateinit var genresAdapter: MovieDetailGenresAdapter
-    private lateinit var castAdapter: CastAdapter
+    private lateinit var genresAdapter : MovieDetailGenresAdapter
+    private lateinit var castAdapter : CastAdapter
 
-    private lateinit var btnReturn: ImageButton
+    private lateinit var btnFavoriteIcon : ImageButton
+    private lateinit var btnReturn : ImageButton
 
     private val movieDetailViewModel = MovieDetailViewModel(this)
 
@@ -57,6 +57,10 @@ class MovieDetailActivity() : AppCompatActivity(), DoOnErrorOnRequestListener {
         setupObservableMovieCast()
 
         onClickBtnReturn()
+
+        btnFavoriteIcon.setOnClickListener {
+            onFavoriteClickedListener()
+        }
     }
 
     private fun onClickBtnReturn() {
@@ -84,6 +88,7 @@ class MovieDetailActivity() : AppCompatActivity(), DoOnErrorOnRequestListener {
     }
 
     private fun bindViews() {
+        btnFavoriteIcon = findViewById(R.id.btnFavoriteIconDetailActivity)
         btnReturn = findViewById(R.id.btnReturn)
         moviePoster = findViewById(R.id.imgMovieDetailPoster)
         movieTitle = findViewById(R.id.txtMovieDetailTitle)
@@ -103,12 +108,20 @@ class MovieDetailActivity() : AppCompatActivity(), DoOnErrorOnRequestListener {
                     movieRuntime.text = it.showRuntimeInHoursAndMinutes()
                     movieOverview.text = it.overview
                     movieUserRating.text = it.showUserRatingString()
-                    genresAdapter.dataSet.addAll(it.genres as List<Genres>)
+                    genresAdapter.dataSet = it.genres as MutableList<Genres>
+
+                    if (it.isFavorite) {
+                        btnFavoriteIcon.setImageResource(R.drawable.ic_heart_favorites_selected)
+                    } else {
+                        btnFavoriteIcon.setImageResource(R.drawable.ic_heart_favorites_unselected)
+                    }
+
                     genresAdapter.notifyDataSetChanged()
 
                     Glide.with(this)
                         .load("https://image.tmdb.org/t/p/w500${it.posterPath}")
                         .into(moviePoster)
+
                 }
             })
     }
@@ -132,8 +145,14 @@ class MovieDetailActivity() : AppCompatActivity(), DoOnErrorOnRequestListener {
             })
     }
 
+    fun onFavoriteClickedListener() {
+        movieDetailViewModel.updateFavoriteMovie()
+    }
+
     override fun onError() {
         val intent = Intent(this, RequestFailedActivity::class.java)
         startActivity(intent)
     }
 }
+
+
