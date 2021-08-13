@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.mariana.moviedbpi.R
 import com.mariana.moviedbpi.domain.DoOnErrorOnRequestListener
 import com.mariana.moviedbpi.domain.entity.Genres
-import com.mariana.moviedbpi.domain.entity.MovieDetail
 import com.mariana.moviedbpi.presentation.adapter.CastAdapter
 import com.mariana.moviedbpi.presentation.adapter.MovieDetailGenresAdapter
 

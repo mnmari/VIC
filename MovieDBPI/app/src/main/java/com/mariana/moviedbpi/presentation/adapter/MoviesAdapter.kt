@@ -1,8 +1,6 @@
 package com.mariana.moviedbpi.presentation.adapter
 
 import android.content.Context
-import android.content.Intent
-import android.graphics.Color.red
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.mariana.moviedbpi.R
 import com.mariana.moviedbpi.domain.MovieActionListener
 import com.mariana.moviedbpi.domain.entity.Movie
-import com.mariana.moviedbpi.presentation.MovieDetailActivity
 
 class MoviesAdapter(private val context: Context, private val movieActionListener: MovieActionListener? = null, var dataSet: MutableList<Movie> = mutableListOf()) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 

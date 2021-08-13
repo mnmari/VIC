@@ -1,6 +1,5 @@
 package com.mariana.moviedbpi.presentation
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -9,8 +8,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.core.net.toUri
-import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -81,7 +78,6 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    //TODO: isVisible
     private fun changeVisibilityFromSearchToHome(s: Editable?) {
         if (s != null) {
             if (s.isEmpty()) {
@@ -139,9 +135,4 @@ class HomeActivity : AppCompatActivity() {
             }
         }.attach()
     }
-
-//    companion object {
-//        private const val FIRST_FRAGMENT_TITLE = "Todos os filmes"
-//        private const val SECOND_FRAGMENT_TITLE = "Favoritos"
-//    }
 }
