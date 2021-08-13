@@ -28,12 +28,12 @@
 
     <TextView
         android:id="@+id/txtMovieName"
-        style="@style/TxtItemMovieName"
+        style="@style/TxtItemMovieNameSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_dp"
         android:ellipsize="end"
-        android:maxWidth="220dp"
+        android:maxWidth="185dp"
         android:maxLines="1"
         android:scrollHorizontally="true"
         app:layout_constraintEnd_toStartOf="@+id/btnFavoriteIcon"

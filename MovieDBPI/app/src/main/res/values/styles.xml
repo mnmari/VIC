@@ -34,6 +34,13 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="TxtItemMovieNameSmall">
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/xmedium_sp</item>
+        <item name="android:textColor">@color/grey_2</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="TxtItemUserRating">
         <item name="android:fontFamily">@font/lato</item>
         <item name="android:textSize">14sp</item>
