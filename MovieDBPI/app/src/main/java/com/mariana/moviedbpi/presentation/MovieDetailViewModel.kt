@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mariana.moviedbpi.domain.*
 import com.mariana.moviedbpi.domain.entity.Cast
-import com.mariana.moviedbpi.domain.entity.Movie
 import com.mariana.moviedbpi.domain.entity.MovieDetail
 import com.mariana.moviedbpi.domain.entity.Rating
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,13 +24,9 @@ class MovieDetailViewModel(private val errorListener: DoOnErrorOnRequestListener
     private val _movieCastLiveData = MutableLiveData<List<Cast>>()
     val movieCastLiveData : LiveData<List<Cast>> = _movieCastLiveData
 
-//    private val _moviesLiveDataFromAPI = MutableLiveData<List<Movie>>()
-    private val _favoriteMoviesLiveDataFromBD = MutableLiveData<List<MovieDetail>>()
-
     private val fetchMovieDetailUseCase = FetchMovieDetailUseCase()
     private val fetchMovieCastUseCase = FetchMovieCastUseCase()
     private val fetchMovieRatingUseCase = FetchMovieRatingUseCase()
-//    private val fetchFavoriteMoviesUseCase = FetchFavoriteMoviesUseCase()
     private val fetchFavoriteMovieFromIdUseCase = FetchFavoriteMovieFromIdUseCase()
     private val addFavoriteMovieUseCase = AddFavoriteMovieUseCase()
     private val deleteFavoriteMovieUseCase = DeleteFavoriteMovieUseCase()
@@ -84,24 +79,6 @@ class MovieDetailViewModel(private val errorListener: DoOnErrorOnRequestListener
             _movieDetailLiveData.postValue(movieDetail)
         }
     }
-
-//    fun addFavoriteMovie(movieDetail: MovieDetail) {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            addFavoriteMovieUseCase.fromMovieDetailToMovieDB(movieDetail)
-//
-//            val favoriteMovie = _favoriteMoviesLiveDataFromBD.value?.find { it.movieID == movieDetail.movieID }
-//            favoriteMovie?.isFavorite = true
-//        }
-////    }
-//
-//    fun deleteFavoriteMovie(movieDetail: MovieDetail) {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            deleteFavoriteMovieUseCase.fromMovieDetailToMovieDB(movieDetail)
-//
-//            val favoriteMovie = _favoriteMoviesLiveDataFromBD.value?.find {it.movieID == movieDetail.movieID}
-//            favoriteMovie?.isFavorite = false
-//        }
-//    }
 
     fun updateFavoriteMovie() {
         CoroutineScope(Dispatchers.IO).launch {
