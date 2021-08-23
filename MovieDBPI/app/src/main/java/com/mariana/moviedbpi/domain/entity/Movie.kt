@@ -15,7 +15,7 @@ data class Movie(
     val genreIDs: List<Int>,
     val title: String,
     val releaseDate: String,
-    val userRating: Float,
+    val userRating: Double,
     val overview: String,
     var isFavorite: Boolean = false ){
 

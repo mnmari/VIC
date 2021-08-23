@@ -32,7 +32,7 @@ data class MovieDB(
     val releaseDate: String,
 
     @ColumnInfo(name = "user_rating")
-    val userRating: Float,
+    val userRating: Double,
 
     @ColumnInfo(name = "overview")
     val overview: String
