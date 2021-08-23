@@ -2,12 +2,12 @@ package com.mariana.moviedbpi.domain.entity
 
 data class MovieDetail(
 
-    val movieID: Int,
+    var movieID: Int,
     val posterPath: String? = "",
     val genres: List<Genres>? = listOf(),
     val title: String,
     val releaseDate: String,
-    val userRating: Float,
+    val userRating: Double,
     val runtime: Int,
     val overview: String,
     var isFavorite: Boolean = false ){

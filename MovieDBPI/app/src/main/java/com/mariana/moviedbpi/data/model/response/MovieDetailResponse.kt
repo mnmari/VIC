@@ -20,7 +20,7 @@ data class MovieDetailResponse(
     val releaseDate: String,
 
     @SerializedName("vote_average")
-    val userRating: Float,
+    val userRating: Double,
 
     @SerializedName("runtime")
     val runtime: Int,

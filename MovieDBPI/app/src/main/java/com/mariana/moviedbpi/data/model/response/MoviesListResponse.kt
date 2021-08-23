@@ -30,7 +30,7 @@ data class MovieResponse(
     val releaseDate: String,
 
     @SerializedName("vote_average")
-    val userRating: Float,
+    val userRating: Double,
 
     @SerializedName("overview")
     val overview: String ) {

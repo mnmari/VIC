@@ -13,7 +13,4 @@
     <string name="activity_request_failed_header">O sistema falhou</string>
     <string name="activity_request_failed_body">Por algum motivo, não foi possível processar com essa solicitação. Por favor, tente novamente.</string>
     <string name="activity_request_try_again">Tentar novamente</string>
-
-
-
 </resources>
